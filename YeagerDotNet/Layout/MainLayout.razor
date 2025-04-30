@@ -1,0 +1,22 @@
+﻿
+@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="window sidebar">
+        <div class="title-bar">
+            <div class="title-bar-text">Navigation</div>
+        </div>
+        <div class="window-body">
+            <NavMenu />
+        </div>
+    </div>
+
+    <main class="window" style="flex-grow: 1;">
+        <div class="title-bar">
+            <div class="title-bar-text">Content</div>
+        </div>
+        <div class="window-body">
+            @Body
+        </div>
+    </main>
+</div>

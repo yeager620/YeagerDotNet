@@ -1,0 +1,32 @@
+@inject IJSRuntime JS
+
+<div id="@CanvasId" class="force-graph-container"></div>
+
+@code {
+  [Parameter] public string CanvasId { get; set; } = "force-graph";
+  private bool _initialized;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender && !_initialized)
+    {
+      _initialized = true;
+      // Example graph data
+      var nodes = new[]
+      {
+        new { id = "n1", label = "A", x = 0, y = 0, size = 5 },
+        new { id = "n2", label = "B", x = 3, y = 1, size = 5 },
+        new { id = "n3", label = "C", x = 1, y = 4, size = 5 },
+      };
+      var edges = new[]
+      {
+        new { id = "e1", source = "n1", target = "n2" },
+        new { id = "e2", source = "n2", target = "n3" },
+        new { id = "e3", source = "n3", target = "n1" },
+      };
+
+      // Call JS to instantiate sigma
+      await JS.InvokeVoidAsync("forceGraph.init", CanvasId, nodes, edges);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@page "/thoughts"
+<PageTitle>Thoughts</PageTitle>
+
+<div class="blog-list">
+    @foreach (var post in posts) 
+    {
+        <article class="blog-entry">
+            <h2>@post.Title</h2>
+            <time datetime="@post.Date.ToString("yyyy-MM-dd")">
+                @post.Date.ToString("MMMM dd, yyyy")
+            </time>
+            <p>@post.Summary</p>
+        </article>
+    }
+</div>
+
+@code {
+    public record BlogPost(string Title, DateTime Date, string Summary, string Link);
+
+    private List<BlogPost> posts = new()
+    {
+        new("IDEs", DateTime.Parse("2025-04-30"),
+            "JetBrains is essentially the ferrari of IDEs, awesome when it works but extremely unreliable. In this analogy VSCode is the analog of a 98 toyota corolla. (Rider deleted my entire repo like 12s ago because the Jetbrains devs apparently couldnt care less about MacOS support for .NET dev.)",
+            ""),
+        new("React ruined UI", DateTime.Parse("2025-04-29"),
+            "most of the time i cant be bothered with frontend / full stack dev but yeah basically title. React is the software equivalent of the 5-over-1 residential architecture, or the \"modern mcdonalds\" of commercial architecture.",
+            "")
+    };
+}

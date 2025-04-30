@@ -1,0 +1,147 @@
+@page "/papers"
+<PageTitle>Papers</PageTitle>
+
+<h1>some papers i like</h1>
+
+<div class="paper-list">
+    @foreach (var paper in papers)
+    {
+        <div class="paper-entry">
+            <div class="paper-header">
+                <h3>
+                    <a href="@paper.Url" target="_blank">@paper.Title</a>
+                </h3>
+                <small>@paper.Authors • @paper.Venue (@paper.Year)</small>
+                <button class="win98-button" @onclick="() => TogglePreview(paper)">
+                    <span class="paper-icon">📄</span>
+                    @(ActivePaper == paper ? "Hide Preview" : "Show Preview")
+                </button>
+            </div>
+            @if (ActivePaper == paper)
+            {
+                <div class="paper-preview">
+                    <iframe src="@paper.PreviewUrl"
+                            width="100%" 
+                            height="600"
+                            style="border:1px solid #ccc;">
+                    </iframe>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .paper-list {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .paper-entry {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 2px solid #000080;
+        background-color: #000080;
+        color: white;
+        box-shadow: inset 1px 1px #dfdfdf, 1px 1px #000;
+    }
+
+    .paper-header h3 {
+        margin: 0 0 0.5rem 0;
+    }
+
+    .paper-header a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .paper-header a:hover {
+        text-decoration: underline;
+    }
+
+    .paper-header small {
+        margin-right: 1rem;
+    }
+
+    .win98-button {
+        padding: 2px 8px;
+        font-family: "MS Sans Serif", Arial, sans-serif;
+        font-size: 12px;
+        background: #c0c0c0;
+        color: #000;
+        border: 2px solid;
+        border-color: #dfdfdf #000 #000 #dfdfdf;
+        box-shadow: 1px 1px #000;
+        position: relative;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 0.5rem;
+    }
+
+    .win98-button:active {
+        border-color: #000 #dfdfdf #dfdfdf #000;
+        box-shadow: -1px -1px #000;
+    }
+
+    .paper-icon {
+        font-size: 12px;
+        line-height: 1;
+    }
+
+    .paper-preview {
+        margin-top: 1rem;
+    }
+
+    iframe {
+        background: white;
+        border: 2px solid !important;
+        border-color: #000 #dfdfdf #dfdfdf #000 !important;
+    }
+</style>
+
+@code {
+    public record Paper(
+        string Title,
+        string Authors,
+        string Venue,
+        int Year,
+        string Url,
+        string PreviewUrl
+    );
+
+    private Paper? ActivePaper { get; set; }
+
+    private void TogglePreview(Paper paper)
+    {
+        if (ActivePaper == paper)
+        {
+            ActivePaper = null;
+        }
+        else
+        {
+            ActivePaper = paper;
+        }
+    }
+
+    private List<Paper> papers = new()
+    {
+        new(
+            Title: "Goedel-Prover: A Frontier Model for Open-Source Automated Theorem Proving",
+            Authors: "Lin et al.",
+            Venue: "Princeton Language and Intelligence, Princeton University",
+            Year: 2025,
+            Url: "https://arxiv.org/abs/2502.07640",
+            PreviewUrl: "files/goedelprover.pdf"
+        ),
+        new(
+            Title: "Nonparametric Probabilistic Regression with Course Learners",
+            Authors: "Brian Lucena",
+            Venue: "Numeristical",
+            Year: 2022,
+            Url: "https://arxiv.org/abs/2210.16247",
+            PreviewUrl: "files/presto.pdf"
+        ),
+    };
+}

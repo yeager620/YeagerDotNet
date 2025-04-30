@@ -1,0 +1,621 @@
+/* Windows 2000 Theme */
+:root {
+    --win-gray: #c0c0c0;
+    --win-dark: #808080;
+    --win-darker: #404040;
+    --win-light: #dfdfdf;
+    --win-lighter: #ffffff;
+    --win-blue: #000080;
+    --win-cream: #c0c0c0;
+    --win-cyan: #008080;
+}
+
+/* Win98–style progress bar container */
+.win98-progress {
+    display: block;        /* ← ensure width actually affects layout */
+    width: 300px;               /* adjust to your taste */
+    height: 16px;
+    background: var(--win-light);
+    transition: width 0.01s linear;
+    
+    /* 3D bevel border */
+    border-top:    2px solid var(--win-lighter);
+    border-left:   2px solid var(--win-lighter);
+    border-bottom: 2px solid var(--win-darker);
+    border-right:  2px solid var(--win-darker);
+  
+    position: relative;
+    overflow: hidden;
+    margin: 2rem auto;         /* center it */
+  }
+  
+  /* The “moving” fill portion */
+  .win98-progress.indeterminate::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -25%;
+    width: 25%;
+    height: 100%;
+  
+    /* fill color */
+    background: var(--win-blue);
+  
+    /* bevel on the fill */
+    border-top:    1px solid var(--win-lighter);
+    border-left:   1px solid var(--win-lighter);
+    border-bottom: 1px solid var(--win-darker);
+    border-right:  1px solid var(--win-darker);
+  
+    /* animate left→right */
+    animation: win98-load 1s linear infinite;
+  }
+  
+  /* keyframes drive the “block” across */
+  @keyframes win98-load {
+    from { left: -25%; }
+    to   { left: 100%; }
+  }
+
+  .win98-progress-text {
+    text-align: center;
+    font-family: 'MS Sans Serif', monospace;
+    font-size: 1.25rem;
+    font-weight: bold;      
+    margin: 0.25rem auto 0;
+    width: 300px;
+    color: black;
+  }
+  
+  
+
+body {
+    background-color: var(--win-gray);
+    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    display: flex;
+    background-color: var(--win-gray);
+}
+
+/* Window styling */
+.window {
+    background: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    box-shadow: 1px 1px 0 0 black;
+    margin: 8px;
+}
+
+/* make the thinking section span the whole page */
+.thinking-section {
+    max-width: 1200px;
+    margin: 16px auto;   /* same margins as your .container */
+  }
+  
+/* you can even reuse your home .container padding: */
+.thinking-section .window-body {
+padding: 8px;        /* same as other windows */
+}
+
+
+.title-bar {
+    background: var(--win-blue);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 5px;
+    font-weight: bold;
+}
+
+.title-bar-text {
+    display: flex;
+    align-items: center;
+}
+  
+.experience-logo {
+/* never larger than these dimensions */
+max-height: 10rem;
+max-width: 10rem;
+
+/* preserve aspect ratio */
+width: auto;
+height: auto;
+
+/* a little breathing room */
+margin-right: 0.5rem;
+}
+  
+
+.window-body {
+    padding: 8px;
+    background-color: var(--win-gray);
+}
+
+/* Buttons */
+button {
+    background-color: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    padding: 4px 16px;
+    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+button:active {
+    border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+}
+
+/* Navigation menu */
+.sidebar {
+    width: 200px;
+    background-color: var(--win-gray);
+    border-right: 2px solid var(--win-darker);
+}
+
+.nav-item {
+    padding: 8px;
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-item:hover {
+    background-color: var(--win-blue);
+    color: white;
+}
+
+/* Content area */
+.content {
+    padding: 16px;
+    background-color: var(--win-gray);
+}
+
+/* Blog entries and course list styling */
+.blog-entry, .course-item {
+    background-color: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    padding: 8px;
+    margin-bottom: 16px;
+}
+
+h1, h2, h3 {
+    color: black;
+    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+}
+
+a {
+    color: var(--win-blue);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* iframe styling */
+iframe {
+    border: 2px solid;
+    border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+    background: white;
+}html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1:focus {
+    outline: none;
+}
+
+a, .btn-link {
+    color: #0071c1;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    color-scheme: light only;
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0I逝뷒PSIjIzUiIHk9IjUxIiB3aWR0aD0iNTYiIGhlaWdodD0iNDkiLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjM1IC01MSkiPjxwYXRoIGQ9Ik0yNjMuNTA2IDUxQzI2NC43MTcgNTEgMjY1LjgxMyA1MS40ODM3IDI2Ni42MDYgNTIuMjY1OEwyNjcuMDUyIDUyLjc5ODcgMjY3LjUzOSA1My42MjgzIDI5MC4xODUgOTIuMTgzMSAyOTAuNTQ1IDkyLjc5NSAyOTAuNjU2IDkyLjk5NkMyOTAuODc3IDkzLjUxMyAyOTEgOTQuMDgxNSAyOTEgOTQuNjc4MiAyOTEgOTcuMDY1MSAyODkuMDM4IDk5IDI4Ni42MTcgOTlMMjQwLjM4MyA5OUMyMzcuOTYzIDk5IDIzNiA5Ny4wNjUxIDIzNiA5NC42NzgyIDIzNiA5NC4zNzk5IDIzNi4wMzEgOTQuMDg4NiAyMzYuMDg5IDkzLjgwNzJMMjM2LjMzOCA5My4wMTYyIDIzNi44NTggOTIuMTMxNCAyNTkuNDczIDUzLjYyOTQgMjU5Ljk2MSA1Mi43OTg1IDI2MC40MDcgNTIuMjY1OEMyNjEuMiA1MS40ODM3IDI2Mi4yOTYgNTEgMjYzLjUwNiA1MVpNMjYzLjU4NiA2Ni4wMTgzQzI2MC43MzcgNjYuMDE4MyAyNTkuMzEzIDY3LjEyNDUgMjU5LjMxMyA2OS4zMzcgMjU5LjMxMyA2OS42MTAyIDI1OS4zMzIgNjkuODYwOCAyNTkuMzcxIDcwLjA4ODdMMjYxLjc5NSA4NC4wMTYxIDI2NS4zOCA4NC4wMTYxIDI2Ny44MjEgNjkuNzQ3NUMyNjcuODYgNjkuNzMwOSAyNjcuODc5IDY5LjU4NzcgMjY3Ljg3OSA2OS4zMTc5IDI2Ny44NzkgNjcuMTE4MiAyNjYuNDQ4IDY2LjAxODMgMjYzLjU4NiA2Ni4wMTgzWk0yNjMuNTc2IDg2LjA1NDdDMjYxLjA0OSA4Ni4wNTQ3IDI1OS43ODYgODcuMzAwNSAyNTkuNzg2IDg5Ljc5MjEgMjU5Ljc4NiA5Mi4yODM3IDI2MS4wNDkgOTMuNTI5NSAyNjMuNTc2IDkzLjUyOTUgMjY2LjExNiA5My41Mjk1IDI2Ny4zODcgOTIuMjgzNyAyNjcuMzg3IDg5Ljc5MjEgMjY3LjM4NyA4Ny4zMDA1IDI2Ni4xMTYgODYuMDU0NyAyNjMuNTc2IDg2LjA1NDdaIiBmaWxsPSIjRkZFNTMwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L2c+PC9zdmc+) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }
+
+.loading-progress {
+    position: relative;
+    display: block;
+    width: 8rem;
+    height: 8rem;
+    margin: 20vh auto 1rem auto;
+}
+
+    .loading-progress circle {
+        fill: none;
+        stroke: #e0e0e0;
+        stroke-width: 0.6rem;
+        transform-origin: 50% 50%;
+        transform: rotate(-90deg);
+    }
+
+        .loading-progress circle:last-child {
+            stroke: #1b6ec2;
+            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
+            transition: stroke-dasharray 0.05s ease-in-out;
+        }
+
+.loading-progress-text {
+    position: absolute;
+    text-align: center;
+    font-weight: bold;
+    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
+}
+
+    .loading-progress-text:after {
+        content: var(--blazor-load-percentage-text, "Loading");
+    }
+
+code {
+    color: #c02d76;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+/* Add these styles to your existing win2000.css */
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-item {
+    padding: 6px 8px;
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 0.9rem;
+}
+
+.nav-item:hover {
+    background-color: var(--win-blue);
+    color: white;
+}
+
+.nav-item.active {
+    background-color: var(--win-darker);
+    color: white;
+    border: 1px solid var(--win-darker);
+}
+
+/* Icons */
+.nav-item i {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px;
+}
+
+.icon-home::before {
+    content: "🏠";
+}
+
+.icon-document::before {
+    content: "📄";
+}
+
+.icon-education::before {
+    content: "📚";
+}
+
+.icon-thoughts::before {
+    content: "💭";
+}
+
+.icon-briefcase::before {
+    content: "💼";
+}
+/* Add these styles to your existing win2000.css */
+
+/* Papers page specific styling */
+.paper-list {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.paper-entry {
+    background-color: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    margin-bottom: 16px;
+    padding: 8px;
+}
+
+.paper-header {
+    background-color: var(--win-blue);
+    color: white;
+    padding: 4px 8px;
+    margin: -8px -8px 8px -8px;
+}
+
+.paper-header h3 {
+    margin: 0;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.paper-header a {
+    color: white;
+    text-decoration: none;
+}
+
+.paper-header a:hover {
+    text-decoration: underline;
+}
+
+.paper-header small {
+    display: block;
+    font-size: 11px;
+    color: #ffffff;
+    margin-top: 4px;
+}
+
+.paper-content {
+    margin-top: 8px;
+    background: white;
+    border: 2px solid;
+    border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+    padding: 1px;
+}
+
+.paper-content iframe {
+    border: none;
+    width: 100%;
+    height: 600px;
+    background: white;
+}
+
+/* Add icon for papers in the navigation */
+.icon-papers::before {
+    content: "📄";
+}
+/* Add these styles to your existing win2000.css */
+  
+
+.container {
+    display: grid;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Home page only: flex row */
+.container.home-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+.profile-section {
+    justify-self: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 2px solid;
+    border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+    background: white;
+    padding: 4px;
+}
+
+.bio-section, .contact-section {
+    width: 100%;
+}
+
+.window-body ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.window-body li {
+    margin-bottom: 8px;
+}
+
+.window-body h1 {
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.project-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.project-list li {
+    border: 2px solid;
+    border-color:
+            var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    background: var(--win-gray);
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: 1fr 2fr;
+    }
+    
+    .profile-section {
+        grid-row: span 2;
+    }
+}
+
+/* === Work Page Layout & Preview === */
+
+/* Container: responsive two-column grid on desktop, one-column on mobile */
+.container {
+    display: grid;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(auto-fit, minmax(768px, 1fr));
+    }
+}
+
+/* Classic list-view table for projects */
+.win-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 11px;
+}
+.win-list th,
+.win-list td {
+    border: 2px solid;
+    border-color:
+            var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    padding: 4px 8px;
+    vertical-align: top;
+}
+.win-list th {
+    background: var(--win-light);
+    font-weight: bold;
+}
+.win-list tr:nth-child(even) {
+    background: var(--win-lighter);
+}
+
+/* Inline preview row (hidden until toggled) */
+.preview-row td {
+    padding: 8px;
+    background: var(--win-light);
+    box-shadow:
+            inset 1px  1px 0 var(--win-lighter),
+            inset -1px -1px 0 var(--win-darker);
+}
+.inline-preview {
+    width: 100%;
+    height: auto;
+    border: 2px solid;
+    border-color:
+            var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+    background: white;
+}
+
+/* Re-use your modal‐button styles for inline buttons */
+.win98-button {
+    background-color: var(--win-gray);
+    border: 2px solid;
+    border-color:
+            var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    padding: 4px 12px;
+    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+}
+.win98-button:active {
+    border-color:
+            var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+}
+
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .skill-button {
+    background-color: var(--win-cream);
+    border: 2px solid;
+    border-color:
+            var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+    padding: 4px 12px;
+    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  
+  .skill-button:active {
+    border-color:
+    var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
+}
+  
+

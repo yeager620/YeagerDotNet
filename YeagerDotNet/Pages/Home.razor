@@ -1,0 +1,61 @@
+﻿@page "/"
+
+<PageTitle>Evan Yeager - Home</PageTitle>
+
+<div class="container home-container">
+    <div class="profile-section window">
+        <div class="window-body">
+            <img src="files/webheadshot.JPG" alt="Evan Yeager" class="profile-image" />
+        </div>
+    </div>
+
+    <div class="bio-section window">
+        <div class="title-bar">
+            <div class="title-bar-text">About</div>
+        </div>
+        <div class="window-body">
+            <h1>Evan Yeager</h1>
+            <p>Berkeley student who cant wait to become a cog in the capitalist machine</p>
+        </div>
+    </div>
+
+    <div class="contact-section window">
+        <div class="title-bar">
+            <div class="title-bar-text">Contact</div>
+        </div>
+        <div class="window-body">
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:yeager@berkeley.edu">yeager@berkeley.edu</a></li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
+                <li><strong>LinkedIn:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div class="thinking-section window">
+  <div class="title-bar">
+    <div class="title-bar-text">Currently Thinking About</div>
+  </div>
+  <div class="window-body">
+    <ul>
+      @foreach (var thought in currentThoughts)
+      {
+        <li>@thought</li>
+      }
+    </ul>
+  </div>
+</div>
+
+@code {
+  private List<string> currentThoughts = new()
+  {
+    "Optimal Control Theory",
+    "Mathematics-informed and physics-informed neural nets",
+    "HDL Compilers",
+    "Deploying machine learning models on embedded devices",
+    "State Machines",
+    "Steely Dan",
+    "Dire Straits"
+  };
+}
+</div>
