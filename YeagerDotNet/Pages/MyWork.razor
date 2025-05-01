@@ -146,7 +146,7 @@ Projects: new()
     "Automated identification, analysis, pricing of FLEX RevCons (Reversal Conversions); went into prod",
     "https://spiderrock.net/announcing-real-time-flex-option-pricing-and-analytics-available-through-spiderrock/",
     string.Empty,
-    Skills: new List<string> { "C#", "Python", "Elastic" },
+    Skills: new List<string> { "C#", "Elastic", "Python", "Pandas" },
     "Article"
     ),
     new Project(
@@ -160,27 +160,35 @@ Projects: new()
 GraphicPath:  "files/srock.png"
 ),
 new WorkExperience(
-Company: "Control Freak",
-Role: "Co-Founder?",
-StartDate: new DateOnly(2025, 1, 1),
-Description: "Building the next generation of data-driven motor control systems",
-Projects: new()
-{
-new Project(
-"Physics-Informed Neural Net RPC for DC Motor SysID",
-"Built RPC architecture for training ODE-informed neural network on data collected from embedded device",
-null,
-string.Empty,
-Skills: new List<string> { "Rust" }
-),
-new Project(
-"D-Optimal SysID Experiment Driver",
-"Built embedded device driver for automating exploratory experiments using a Fisher-information-theoretic framework",
-null,
-string.Empty,
-Skills: new List<string> { "Rust" }
-)
-}
+    Company: "Control Freak",
+    Role: "Co-Founder",
+    StartDate: new DateOnly(2025, 1, 1),
+    Description: "Building intelligent data-driven motor control systems",
+        Projects: new()
+        {
+            new Project(
+                "Physics-Informed Neural Net RPC for DC Motor SysID",
+                "Built RPC architecture for training ODE-informed neural network on data collected from embedded device",
+                null,
+                string.Empty,
+                Skills: new List<string> { "Cython", "TensorFlow", "gRPC", "Rust" }
+            ),
+            new Project(
+                "D-Optimal SysID Experiment Driver",
+                "Built embedded device driver for automating exploratory experiments using a Fisher-information-theoretic framework",
+                null,
+                string.Empty,
+                Skills: new List<string> { "Rust", "serde", "ndarray" }
+            )
+        }
+    ),
+    new WorkExperience(
+        Company: "Poker at Berkeley",
+        Role: "Head of Finance",
+        StartDate: new DateOnly(2024, 03, 1),
+        EndDate: new DateOnly(2025, 05, 1),
+        Description: "Actual volunteer work",
+        Projects: new(){}
 ),
 new WorkExperience(
     Company: "UIC Integrative Physiology Lab",
@@ -195,10 +203,11 @@ new WorkExperience(
             "Featured Paper in Journal of CPS Capstone Research",
             "https://drive.google.com/file/d/1XqRVWyPKnwW9D_wGTkRyzJmZjCTc5zpS/view",
             string.Empty,
-            Skills: new List<string> { "R" },
+            Skills: new List<string> { "R", "Signal Processing" },
             "View Paper"
         )
-    })
+    }
+)
 };
 
 private WorkExperience? previewExp;
@@ -219,7 +228,7 @@ previewProj = proj;
 }
 
 private string FormatDateRange(DateOnly start, DateOnly? end)
-=> $"{start:MMM yyyy} – {(end?.ToString("MMM yyyy") ?? "Present")}";
+=> $"{start:MMM yyyy} - {(end?.ToString("MMM yyyy") ?? "Present")}";
 
 private bool IsImageFile(string? path)
 {

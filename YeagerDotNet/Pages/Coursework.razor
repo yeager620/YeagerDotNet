@@ -2,107 +2,245 @@
 <PageTitle>Coursework</PageTitle>
 
 <style>
-    .course-list h3 {
-        font-size: 1.1rem;
-    }
-    
-    .course-list h3 a {
-        text-decoration: none;
-    }
+  /* Toggle button row */
+  .toggle-buttons {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
 
-    .semester-header {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        font-size: 1.4rem;
-        color: #333;
-    }
+  /* Ranked-lists grid */
+  .ranked-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .ranked-column h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .ranked-column ol {
+    padding-left: 1.25rem;
+  }
+  .ranked-column li {
+    margin-bottom: 0.75rem;
+  }
+  .ranked-column .description {
+    font-size: 0.9rem;
+    color: #333;
+    margin-top: 0.25rem;
+  }
 
-    .semester-courses {
-        list-style-type: none;
-        padding-left: 0;
-    }
-
-    .course-item {
-        margin-bottom: 1rem;
-    }
+  /* Semester view styles (you already have these) */
+  .semester-header {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: #333;
+  }
+  .semester-courses {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .course-item {
+    margin-bottom: 1rem;
+  }
+  .course-item h3 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .course-item p {
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+    color: #333;
+  }
 </style>
 
 <section class="course-list">
-    <h1>Thoughts on some of my Techs</h1>
-    
-    @foreach (var semester in coursesBySemester.OrderByDescending(s => s.Key))
+  <h1>Thoughts on some of my Techs</h1>
+
+  <div class="toggle-buttons">
+    <button class="win98-button"
+            disabled="@showSemesterView"
+            @onclick="() => showSemesterView = true">
+      By Semester
+    </button>
+    <button class="win98-button"
+            disabled="@(showSemesterView == false)"
+            @onclick="() => showSemesterView = false">
+      Ranked Lists
+    </button>
+  </div>
+
+  @if (showSemesterView)
+  {
+    @* --- Semester-by-semester view, sorted newest first --- *@
+    @foreach (var semester in coursesBySemester
+      .OrderByDescending(kvp => int.Parse(kvp.Key.Split(' ')[1]))           // year descending
+      .ThenByDescending(kvp => seasonOrder[kvp.Key.Split(' ')[0]])          // Fall (2) before Spring (1)
+    )
     {
-        <div class="semester-section">
-            <h3 class="semester-header">@semester.Key</h3>
-            <ul class="semester-courses">
-                @foreach (var course in semester.Value)
+      <div class="semester-section">
+        <h3 class="semester-header">@semester.Key</h3>
+        <ul class="semester-courses">
+          @foreach (var course in semester.Value)
+          {
+            <li class="course-item">
+              <h3>
+                @if (!string.IsNullOrWhiteSpace(course.NotesLink))
                 {
-                    <li class="course-item">
-                        <h3>
-                            <a href="@course.NotesLink" target="_blank">
-                                @course.Name
-                            </a>
-                        </h3>
-                        <p>@course.Description</p>
-                    </li>
+                  <a href="@course.NotesLink" target="_blank">@course.Name</a>
                 }
-            </ul>
-        </div>
+                else
+                {
+                  @course.Name
+                }
+              </h3>
+              @if (!string.IsNullOrWhiteSpace(course.Description))
+              {
+                <p>@course.Description</p>
+              }
+            </li>
+          }
+        </ul>
+      </div>
     }
+  }
+  else
+  {
+    @* --- Four-column ranked lists --- *@
+    <div class="ranked-grid">
+      @foreach (var category in rankingLists.Keys)
+      {
+        <div class="ranked-column">
+          <h3>@category</h3>
+          <ol>
+            @foreach (var item in rankingLists[category])
+            {
+              <li>
+                @item.Name
+                @if (!string.IsNullOrWhiteSpace(item.Description))
+                {
+                  <div class="description">@item.Description</div>
+                }
+              </li>
+            }
+          </ol>
+        </div>
+      }
+    </div>
+  }
 </section>
 
 @code {
-    public record Course(string Name, string Description, string NotesLink);
+  // toggle state
+  private bool showSemesterView = true;
 
-    private Dictionary<string, List<Course>> coursesBySemester = new()
-    {
-        ["Spring 2025"] = new List<Course>
-        {
-            new("CS 162: Operating Systems and System Programming",
-                "",
-                ""),
-            new("CS 188: Artificial Intelligence",
-                "",
-                ""),
-            new("ECON C103: Mathematical Economics",
-            "",
-            "")
-        },
-        ["Fall 2024"] = new List<Course>
-        {
-            new("EECS 126: Probability and random processes",
-                "",
-                ""),
-            new("CS 170: Efficient Algorithms and Intractable Problems",
-                "",
-                ""),
-            new("CS 61c: Machine Structures",
-            "",
-            "")
-        },
-        ["Spring 2024"] = new List<Course>
-        {
-            new("CS 70: Discrete Mathematics and Probability Theory",
-                "",
-                ""),
-            new("CS 61b: Data Structures",
-                "",
-                ""),
-            new("EECS 16b: Designing Information Devices and Systems II",
-                "",
-                "")
-        },
-        ["Fall 2023"] = new List<Course>
-        {
-            new("CS 61a: The Structure and Interpretation of Computer Programs",
-                "",
-                ""),
-            new("EECS 16a: Designing Information Devices and Systems I",
-                "",
-                ""),
-            new("Physics 7b: Thermodynamics, Electricicity & Magnetism",
-                "",
-                "")
-        }
-    };
+  // map seasons to sort order
+  private static readonly Dictionary<string,int> seasonOrder = new()
+  {
+    ["Spring"] = 1,
+    ["Fall"]   = 2
+  };
+
+  public record Course(string Name, string Description, string NotesLink);
+
+  // semester data
+  private readonly Dictionary<string, List<Course>> coursesBySemester = new()
+  {
+    ["Spring 2025"] = new() {
+      new("CS 162: Operating Systems and System Programming",
+          "Heinous.",
+          ""),
+      new("CS 188: Artificial Intelligence",
+          "Quite underrated; the notion that it is useless compared to 189 is outdated.",
+          ""),
+      new("ECON C103: Mathematical Economics",
+          "A stretch to call this a tech, but felt I got a lot more out of it than what I was expecting. ",
+          "")
+    },
+    ["Fall 2024"] = new() {
+      new("EECS 126: Probability and Random Processes",
+          "Jiao is a funny guy.",
+          ""),
+      new("CS 170: Efficient Algorithms and Intractable Problems",
+          "",
+          ""),
+      new("CS 61c: Machine Structures",
+          "Garcia arguably best prof at Berkeley and maybe at any CS program anywhere",
+          "")
+    },
+    ["Spring 2024"] = new() {
+      new("CS 70: Discrete Mathematics and Probability Theory",
+          "",
+          ""),
+      new("CS 61b: Data Structures",
+          "Incredibly mid",
+          ""),
+      new("EECS 16b: Designing Information Devices and Systems II",
+          "",
+          "")
+    },
+    ["Fall 2023"] = new() {
+      new("CS 61a: The Structure and Interpretation of Computer Programs",
+          "",
+          ""),
+      new("EECS 16a: Designing Information Devices and Systems I",
+          "",
+          ""),
+      new("Physics 7b: Thermodynamics, Electricity & Magnetism",
+          "Almost changed my major to physics",
+          "")
+    }
+  };
+
+  // new: four ranked lists of five courses each
+  private readonly Dictionary<string, List<Course>> rankingLists = new()
+  {
+    ["Favorite"] = new() {
+    new("EECS 126: Probability", 
+        "", ""),
+    new("Physics 7b", 
+        "", ""),
+    new("CS 61c: Machine Structures", 
+        "", ""),
+    new("CS 188: Artificial Intelligence", 
+        "Quite underrated. The notion that this class is useless in comparison to 189 is likely outdated.", ""),
+    new("CS 70: Discrete Mathematics and Probability Theory",
+        "", "")
+    },
+    ["Most Useful"] = new() {
+      new("CS 61c: Machine Structures", 
+          "", ""),
+      new("CS 162: Operating Systems", 
+          "", ""),
+      new("EECS 126: Probability", 
+          "", ""),
+      new("CS 170: Efficient Algorithms and Intractable Problems", 
+        "Most of the utility from this course is derived from i) the ability to get better at leedcode and ii) an understanding of how to formulate problems in an algorithmic framework. I have personally found combinatorial algorithms largely useless.", ""),
+      new("EECS 16b: DIDS II", 
+          "", "")
+    },
+    ["Hardest"] = new() {
+        new("CS 162: Operating Systems and System Programming", 
+          "", ""),
+        new("CS 170: Efficient Algorithms and Intractable Problems", 
+          "", ""),
+        new("EECS 16a: DIDS I",
+        "", ""),
+        new("CS 61c: Machine Structures", 
+          "", ""),
+        new("CS 61b: Data Structures", 
+          "", "")
+    },
+    ["Easiest"] = new() {
+    new("ECON C103", 
+        "", ""),
+    new("CS 188: AI", 
+        "", ""),
+    new("Physics 7b",
+        "", ""),
+    }
+  };
 }

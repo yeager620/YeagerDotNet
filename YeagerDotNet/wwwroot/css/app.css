@@ -66,6 +66,34 @@
     width: 300px;
     color: black;
   }
+
+  /* drive the width of the blue fill directly from Blazor’s percentage */
+.win98-progress-bar {
+    /* fallback to 0% so it starts empty */
+    width: var(--blazor-load-percentage, 0%);
+    height: 100%;
+    background: var(--win-blue);
+    /* keep your existing bevel borders */
+    border-top:    1px solid var(--win-lighter);
+    border-left:   1px solid var(--win-lighter);
+    border-bottom: 1px solid var(--win-darker);
+    border-right:  1px solid var(--win-darker);
+    transition: width 0.1s ease-out;
+  }
+  
+  /* and render the text via the second CSS variable */
+  .win98-progress-text::after {
+    content: var(--blazor-load-percentage-text, "0%");
+    display: block;
+    text-align: center;
+    font-family: 'MS Sans Serif', monospace;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 0.25rem;
+    width: 300px;
+    color: black;
+  }
+  
   
   
 
@@ -93,8 +121,8 @@ body {
 
 /* make the thinking section span the whole page */
 .thinking-section {
-    max-width: 1200px;
-    margin: 16px auto;   /* same margins as your .container */
+    margin: 16px auto;
+    max-width: calc(33% - 8px);
   }
   
 /* you can even reuse your home .container padding: */
@@ -453,7 +481,6 @@ code {
     padding: 16px;
 }
 
-/* Home page only: flex row */
 .container.home-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -462,6 +489,15 @@ code {
     margin: 0 auto;
     padding: 16px;
   }
+
+.container.general-container {
+max-width: 1200px;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: flex-start;
+flex-wrap: wrap;
+}
 
 .profile-section {
     justify-self: center;

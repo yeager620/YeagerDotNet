@@ -8,58 +8,22 @@
     <base href="/" />
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="icon"          type="image/png" href="favicon.ico" />
+    <link rel="icon"          type="image/x-icon" href="favicon.ico" />
     <link href="YeagerDotNet.styles.css" rel="stylesheet" />
     <link href="css/win2000.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="app">
-      <div class="win98-progress">
-        <div class="win98-progress-bar"></div>
-      </div>
-      <div class="win98-progress-text">0%</div>
+  <div id="app">
+    <div class="win98-progress">
+      <div class="win98-progress-bar"></div>
     </div>
+    <div class="win98-progress-text"></div>
+  </div>
   
-    <div id="blazor-error-ui">…</div>
-
-    <script>
-        // Listen on document (not window)
-        document.addEventListener('blazor:frameworkdownloadprogress', event => {
-          const pct = Math.round(100 * event.loadedCount / event.totalCount);
-          document
-            .querySelector('.win98-progress-bar')
-            .style.width = pct + '%';
-          document
-            .querySelector('.win98-progress-text')
-            .textContent = pct + '%';
-        });
-      </script>
-  
-    <!-- 1. prevent the default autostart -->
-    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
-  
-    <script>
-      const bar    = document.querySelector('.win98-progress-bar');
-      const text   = document.querySelector('.win98-progress-text');
-      let   lastPct = 0;
-  
-      // 2. Start a fake loader for older runtimes
-      const fallback = setInterval(() => {
-        lastPct = Math.min(90, lastPct + Math.floor(Math.random()*10+5));
-        bar.style.width  = lastPct + '%';
-        text.textContent = lastPct + '%';
-      }, 200);
-  
-      // 3. Kick off Blazor with the official download hook
-      Blazor.start({
-        downloadResourcesResponseHook: (loaded, total) => {
-          clearInterval(fallback);
-          const pct = Math.round(100 * loaded / total);
-          bar.style.width  = pct + '%';
-          text.textContent = pct + '%';
-        }
-      });
-    </script>
-  </body>
-  </html>
+  <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+  <script>
+    Blazor.start();
+  </script>
+</body>
+</html>
