@@ -24,7 +24,6 @@ jobs:
       - name: Patch base href + include nojekyll
         run: |
           sed -i 's|<base href="/" />|<base href="/YeagerDotNet/" />|' YeagerDotNet/dist/wwwroot/index.html
-          cp YeagerDotNet/dist/wwwroot/.nojekyll YeagerDotNet/dist/wwwroot/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
