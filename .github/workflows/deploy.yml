@@ -18,21 +18,17 @@ jobs:
           dotnet-version: '9.0'
 
       - name: Publish Blazor app
-        # ← run dotnet publish in the project folder
         working-directory: ./YeagerDotNet
         run: dotnet publish -c Release -o dist
 
       - name: Patch base href + include nojekyll
-        # ← still in repo root by default,
-        #    so reference the subfolder’s dist
         run: |
-          sed -i 's|<base href="/" />|<base href="/YeagerDotNet/" />|' YeagerDotNet/dist/index.html
-          cp YeagerDotNet/dist/.nojekyll YeagerDotNet/dist/
+          sed -i 's|<base href="/" />|<base href="/YeagerDotNet/" />|' YeagerDotNet/dist/wwwroot/index.html
+          cp YeagerDotNet/dist/wwwroot/.nojekyll YeagerDotNet/dist/wwwroot/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # ← publish the files you just built
-          publish_dir: YeagerDotNet/dist
+          publish_dir: YeagerDotNet/dist/wwwroot
           publish_branch: gh-pages
