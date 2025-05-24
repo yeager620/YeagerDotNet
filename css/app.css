@@ -1,4 +1,3 @@
-/* Windows 2000 Theme */
 :root {
     --win-gray: #c0c0c0;
     --win-dark: #808080;
@@ -10,15 +9,13 @@
     --win-cyan: #008080;
 }
 
-/* Win98–style progress bar container */
 .win98-progress {
-    display: block;        /* ← ensure width actually affects layout */
-    width: 300px;               /* adjust to your taste */
+    display: block;
+    width: 300px;
     height: 16px;
     background: var(--win-light);
     transition: width 0.01s linear;
     
-    /* 3D bevel border */
     border-top:    2px solid var(--win-lighter);
     border-left:   2px solid var(--win-lighter);
     border-bottom: 2px solid var(--win-darker);
@@ -26,10 +23,9 @@
   
     position: relative;
     overflow: hidden;
-    margin: 2rem auto;         /* center it */
+    margin: 2rem auto;
   }
   
-  /* The “moving” fill portion */
   .win98-progress.indeterminate::before {
     content: "";
     position: absolute;
@@ -38,20 +34,16 @@
     width: 25%;
     height: 100%;
   
-    /* fill color */
     background: var(--win-blue);
   
-    /* bevel on the fill */
     border-top:    1px solid var(--win-lighter);
     border-left:   1px solid var(--win-lighter);
     border-bottom: 1px solid var(--win-darker);
     border-right:  1px solid var(--win-darker);
   
-    /* animate left→right */
     animation: win98-load 1s linear infinite;
   }
   
-  /* keyframes drive the “block” across */
   @keyframes win98-load {
     from { left: -25%; }
     to   { left: 100%; }
@@ -67,13 +59,10 @@
     color: black;
   }
 
-  /* drive the width of the blue fill directly from Blazor’s percentage */
 .win98-progress-bar {
-    /* fallback to 0% so it starts empty */
     width: var(--blazor-load-percentage, 0%);
     height: 100%;
     background: var(--win-blue);
-    /* keep your existing bevel borders */
     border-top:    1px solid var(--win-lighter);
     border-left:   1px solid var(--win-lighter);
     border-bottom: 1px solid var(--win-darker);
@@ -81,7 +70,6 @@
     transition: width 0.1s ease-out;
   }
   
-  /* and render the text via the second CSS variable */
   .win98-progress-text::after {
     content: var(--blazor-load-percentage-text, "0%");
     display: block;
@@ -110,7 +98,6 @@ body {
     background-color: var(--win-gray);
 }
 
-/* Window styling */
 .window {
     background: var(--win-gray);
     border: 2px solid;
@@ -119,15 +106,14 @@ body {
     margin: 8px;
 }
 
-/* make the thinking section span the whole page */
+
 .thinking-section {
-    margin: 16px auto;
+    margin: 16px 0;
     max-width: calc(33% - 8px);
-  }
+}
   
-/* you can even reuse your home .container padding: */
 .thinking-section .window-body {
-padding: 8px;        /* same as other windows */
+padding: 8px;
 }
 
 
@@ -147,15 +133,12 @@ padding: 8px;        /* same as other windows */
 }
   
 .experience-logo {
-/* never larger than these dimensions */
 max-height: 10rem;
 max-width: 10rem;
 
-/* preserve aspect ratio */
 width: auto;
 height: auto;
 
-/* a little breathing room */
 margin-right: 0.5rem;
 }
   
@@ -165,7 +148,6 @@ margin-right: 0.5rem;
     background-color: var(--win-gray);
 }
 
-/* Buttons */
 button {
     background-color: var(--win-gray);
     border: 2px solid;
@@ -180,7 +162,6 @@ button:active {
     border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
 }
 
-/* Navigation menu */
 .sidebar {
     width: 200px;
     background-color: var(--win-gray);
@@ -199,13 +180,11 @@ button:active {
     color: white;
 }
 
-/* Content area */
 .content {
     padding: 16px;
     background-color: var(--win-gray);
 }
 
-/* Blog entries and course list styling */
 .blog-entry, .course-item {
     background-color: var(--win-gray);
     border: 2px solid;
@@ -228,7 +207,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* iframe styling */
 iframe {
     border: 2px solid;
     border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
@@ -347,7 +325,6 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
-/* Add these styles to your existing win2000.css */
 
 .nav-menu {
     display: flex;
@@ -376,7 +353,6 @@ code {
     border: 1px solid var(--win-darker);
 }
 
-/* Icons */
 .nav-item i {
     width: 16px;
     height: 16px;
@@ -406,9 +382,7 @@ code {
 .icon-briefcase::before {
     content: "💼";
 }
-/* Add these styles to your existing win2000.css */
 
-/* Papers page specific styling */
 .paper-list {
     max-width: 1200px;
     margin: 0 auto;
@@ -466,11 +440,9 @@ code {
     background: white;
 }
 
-/* Add icon for papers in the navigation */
 .icon-papers::before {
     content: "📄";
 }
-/* Add these styles to your existing win2000.css */
   
 
 .container {
@@ -558,9 +530,7 @@ flex-wrap: wrap;
     }
 }
 
-/* === Work Page Layout & Preview === */
 
-/* Container: responsive two-column grid on desktop, one-column on mobile */
 .container {
     display: grid;
     flex-direction: column;
@@ -575,7 +545,6 @@ flex-wrap: wrap;
     }
 }
 
-/* Classic list-view table for projects */
 .win-list {
     width: 100%;
     border-collapse: collapse;
@@ -598,7 +567,6 @@ flex-wrap: wrap;
     background: var(--win-lighter);
 }
 
-/* Inline preview row (hidden until toggled) */
 .preview-row td {
     padding: 8px;
     background: var(--win-light);
@@ -615,7 +583,6 @@ flex-wrap: wrap;
     background: white;
 }
 
-/* Re-use your modal‐button styles for inline buttons */
 .win98-button {
     background-color: var(--win-gray);
     border: 2px solid;
