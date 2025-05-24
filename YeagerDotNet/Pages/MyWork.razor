@@ -1,5 +1,7 @@
 @page "/mywork"
-@inject IJSRuntime JSRuntime
+@using Microsoft.JSInterop
+@using System.IO
+
 <PageTitle>My Work</PageTitle>
 
 <h2 class="page-title">all work and no work makes work a dull work</h2>
@@ -7,234 +9,256 @@
 <div class="container">
     @foreach (var exp in workExperiences.OrderByDescending(e => e.StartDate ?? DateOnly.MaxValue))
     {
-    <div class="window experience-window">
-        <div class="title-bar">
-            <div class="title-bar-text">
-                @exp.Company
+        <div class="window experience-window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    @exp.Company
+                </div>
+            </div>
+            <div class="window-body">
+                @if (!string.IsNullOrEmpty(exp.GraphicPath)) 
+                {
+                    <div class="experience-graphic-block">
+                        <img src="@exp.GraphicPath"
+                            alt="@($"{exp.Company} logo")"
+                            class="experience-logo" />
+                    </div>
+                }
+                
+                @if (!string.IsNullOrWhiteSpace(exp.Role))
+                {
+                    <h4>@exp.Role</h4>
+                }
+
+                @if (exp.StartDate.HasValue && exp.EndDate.HasValue)
+                {
+                    <h5 class="date-subtitle">@FormatDateRange(exp.StartDate.Value, exp.EndDate)</h5>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(exp.Description))
+                {
+                    <p>@exp.Description</p>
+                }
+
+                @if (exp.Projects != null && exp.Projects.Any())
+                {
+                    <table class="win-list">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Description</th>
+                                <th>Skills</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in exp.Projects!)
+                            {
+                                <tr>
+                                    <td>@p.Title</td>
+                                    <td>@p.Description</td>
+                                    <td>
+                                        @if (p.Skills != null && p.Skills.Any())
+                                        {
+                                            <div class="skill-list">
+                                                @foreach (var skill in p.Skills)
+                                                {
+                                                    <button class="skill-button">@skill</button>
+                                                }
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="button-group">
+                                            @if (!string.IsNullOrEmpty(p.WebLink))
+                                            {
+                                                <button class="win98-button"
+                                                        @onclick='() => JSRuntime.InvokeVoidAsync("open", p.WebLink, "_blank")'>
+                                                    @p.ButtonText
+                                                </button>
+                                            }
+                                            @if (!string.IsNullOrEmpty(p.PreviewPath))
+                                            {
+                                                <button class="win98-button" @onclick='() => TogglePreview(exp, p)'>
+                                                    Preview
+                                                </button>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                @if (previewExp == exp && previewProj == p)
+                                {
+                                    <tr class="preview-row">
+                                        <td colspan="4">
+                                            @if (IsImageFile(p.PreviewPath))
+                                            {
+                                                <img src="@p.PreviewPath" alt="Preview" class="inline-preview" />
+                                            }
+                                            else
+                                            {
+                                                <iframe src="@p.PreviewPath" class="inline-preview"></iframe>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
             </div>
         </div>
-        <div class="window-body">
-            @if (!string.IsNullOrEmpty(exp.GraphicPath)) {
-            <div class="experience-graphic-block">
-                <img src="@exp.GraphicPath"
-                alt="@($"{exp.Company} logo")"
-                class="experience-logo" />
-            </div>
-            }
-            @* Optional Role header *@
-            @if (!string.IsNullOrWhiteSpace(exp.Role))
-            {
-            <h4>@exp.Role</h4>
-            }
-
-            @* Date subtitle (only show when both start and end exist) *@
-            @if (exp.StartDate.HasValue && exp.EndDate.HasValue)
-            {
-            <h5 class="date-subtitle">@FormatDateRange(exp.StartDate.Value, exp.EndDate)</h5>
-            }
-
-            @* Optional description *@
-            @if (!string.IsNullOrWhiteSpace(exp.Description))
-            {
-            <p>@exp.Description</p>
-            }
-
-            @* Optional projects table *@
-            @if (exp.Projects != null && exp.Projects.Any())
-            {
-            <table class="win-list">
-                <thead>
-                <tr>
-                    <th>Project</th>
-                    <th>Description</th>
-                    <th>Skills</th>
-                    <th>Links</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var p in exp.Projects!)
-                {
-                <tr>
-                    <td>@p.Title</td>
-                    <td>@p.Description</td>
-                    <td>
-                    @if (p.Skills != null && p.Skills.Any())
-                    {
-                        <div class="skill-list">
-                        @foreach (var skill in p.Skills)
-                        {
-                            <button class="skill-button">@skill</button>
-                        }
-                        </div>
-                    }
-                    </td>
-                    <td>
-                        <div class="button-group">
-                            @if (!string.IsNullOrEmpty(p.WebLink))
-                            {
-                            <button class="win98-button"
-                                    @onclick='() => JSRuntime.InvokeVoidAsync("open", p.WebLink, "_blank")'>
-                                @p.ButtonText
-                            </button>
-                            }
-                            @if (!string.IsNullOrEmpty(p.PreviewPath))
-                            {
-                            <button class="win98-button" @onclick='() => TogglePreview(exp, p)'>
-                                Preview
-                            </button>
-                            }
-                        </div>
-                    </td>
-                </tr>
-
-                @if (previewExp == exp && previewProj == p)
-                {
-                <tr class="preview-row">
-                    <td colspan="3">
-                        @if (IsImageFile(p.PreviewPath))
-                        {
-                        <img src="@p.PreviewPath" alt="Preview" class="inline-preview" />
-                        }
-                        else
-                        {
-                        <iframe src="@p.PreviewPath" class="inline-preview"></iframe>
-                        }
-                    </td>
-                </tr>
-                }
-                }
-                </tbody>
-            </table>
-            }
-        </div>
-    </div>
     }
 </div>
 
 @code {
-public record Project(
-string Title,
-string? Description = null,
-string? WebLink = null,
-string? PreviewPath = null,
-List<string>? Skills  = null,
-string  ButtonText  = "View"
-);
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = null!;
 
-public record WorkExperience(
-string Company,
-string? Role = null,
-DateOnly? StartDate = null,
-DateOnly? EndDate = null,
-string? Description = null,
-List<Project>? Projects = null,
-string? GraphicPath  = null
-);
-
-private List<WorkExperience> workExperiences = new()
-{
-new WorkExperience(
-Company: "SpiderRock",
-Role: "Software Engineering Intern",
-StartDate: new DateOnly(2024, 6, 1),
-EndDate: new DateOnly(2024, 8, 1),
-Description: "Worked on high-performance financial technology solutions.",
-Projects: new()
+    public class Project
     {
-    new Project(
-    "FLEX Option Data Analytics",
-    "Automated identification, analysis, pricing of FLEX RevCons (Reversal Conversions); went into prod",
-    "https://spiderrock.net/announcing-real-time-flex-option-pricing-and-analytics-available-through-spiderrock/",
-    string.Empty,
-    Skills: new List<string> { "C#", "Elastic", "Python", "Pandas" },
-    "Article"
-    ),
-    new Project(
-    "Drift-adjusted Theta",
-    "Used expected stock drift rate to improve accuracy of various numerical option Theta calcs",
-    null,
-    string.Empty,
-    Skills: new List<string> { "C#" }
-    )
-    },
-GraphicPath:  "files/srock.png"
-),
-new WorkExperience(
-    Company: "Control Freak",
-    Role: "Co-Founder",
-    StartDate: new DateOnly(2025, 1, 1),
-    Description: "Building intelligent data-driven motor control systems",
-        Projects: new()
-        {
-            new Project(
-                "Physics-Informed Neural Net RPC for DC Motor SysID",
-                "Built RPC architecture for training ODE-informed neural network on data collected from embedded device",
-                null,
-                string.Empty,
-                Skills: new List<string> { "Cython", "TensorFlow", "gRPC", "Rust" }
-            ),
-            new Project(
-                "D-Optimal SysID Experiment Driver",
-                "Built embedded device driver for automating exploratory experiments using a Fisher-information-theoretic framework",
-                null,
-                string.Empty,
-                Skills: new List<string> { "Rust", "serde", "ndarray" }
-            )
-        }
-    ),
-    new WorkExperience(
-        Company: "Poker at Berkeley",
-        Role: "Head of Finance",
-        StartDate: new DateOnly(2024, 03, 1),
-        EndDate: new DateOnly(2025, 05, 1),
-        Description: "Actual volunteer work",
-        Projects: new(){}
-),
-new WorkExperience(
-    Company: "UIC Integrative Physiology Lab",
-    Role: "Visiting Researcher",
-    StartDate: new DateOnly(2022, 11, 1),
-    EndDate: new DateOnly(2023, 5, 1),
-    Description: "Muscle activation research for high school capstone project",
-    Projects: new()
-    {
-        new Project(
-            "Electromyographical Comparison of Row Exercises",
-            "Featured Paper in Journal of CPS Capstone Research",
-            "https://drive.google.com/file/d/1XqRVWyPKnwW9D_wGTkRyzJmZjCTc5zpS/view",
-            string.Empty,
-            Skills: new List<string> { "R", "Signal Processing" },
-            "View Paper"
-        )
+        public string Title { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public string? WebLink { get; set; }
+        public string? PreviewPath { get; set; }
+        public List<string>? Skills { get; set; }
+        public string ButtonText { get; set; } = "View";
     }
-)
-};
 
-private WorkExperience? previewExp;
-private Project? previewProj;
+    public class WorkExperience
+    {
+        public string Company { get; set; } = string.Empty;
+        public string? Role { get; set; }
+        public DateOnly? StartDate { get; set; }
+        public DateOnly? EndDate { get; set; }
+        public string? Description { get; set; }
+        public List<Project>? Projects { get; set; }
+        public string? GraphicPath { get; set; }
+    }
 
-private void TogglePreview(WorkExperience exp, Project proj)
-{
-if (previewExp == exp && previewProj == proj)
-{
-previewExp = null;
-previewProj = null;
-}
-else
-{
-previewExp = exp;
-previewProj = proj;
-}
-}
+    private List<WorkExperience> workExperiences = new()
+    {
+        new WorkExperience
+        {
+            Company = "SpiderRock",
+            Role = "Software Engineering Intern",
+            StartDate = new DateOnly(2024, 6, 1),
+            EndDate = new DateOnly(2024, 8, 1),
+            Description = "Eat sleep breathe options",
+            Projects = new List<Project>
+            {
+                new Project
+                {
+                    Title = "FLEX Option Data Analytics",
+                    Description = "Automated identification, analysis, pricing of FLEX RevCons (Reversal Conversions); went into prod",
+                    WebLink = "https://spiderrock.net/announcing-real-time-flex-option-pricing-and-analytics-available-through-spiderrock/",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "C#", "Elastic", "Python", "Pandas" },
+                    ButtonText = "Article"
+                },
+                new Project
+                {
+                    Title = "Drift-adjusted Theta",
+                    Description = "Used expected stock drift rate to improve accuracy of various numerical option Theta calcs",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "C#" }
+                },
+                new Project
+                {
+                    Title = "Exchange Message Dissemination Analysis",
+                    Description = "Research and subsequent presentation on message dissemination patterns of European derivatives exchanges during order book sweeps",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "SQLyog", "Python" }
+                },
+                new Project
+                {
+                    Title = "AlphaProbabilities Benchmarking",
+                    Description = "Benchmarking predictive power of in-house models for option trading signals and comparing to existing models",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "Python", "XGBoost", "SQLyog", "Pandas" }
+                }
+            },
+            GraphicPath = "files/srock.png"
+        },
+        new WorkExperience
+        {
+            Company = "Control Freak",
+            Role = "Co-Founder",
+            StartDate = new DateOnly(2025, 1, 1),
+            Description = "Intelligent motor control, tuning, and operating system software for robotic applications",
+            Projects = new List<Project>
+            {
+                new Project
+                {
+                    Title = "Autotune",
+                    Description = "Automated proportional, integral, derivative feedback control gain tuning",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "Rust" }
+                },
+                new Project
+                {
+                    Title = "SysId Engine",
+                    Description = "Automated experiments for robotic subsystem identification and feedforward gain tuning",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "Rust", "ndarray" }
+                },
+                new Project
+                {
+                    Title = "RPC Framework",
+                    Description = "High performance remote procedure call framework for bidirectional communication between dashboard and motor controllers",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "Rust", "Protobuf" }
+                }
+            }
+        },
+        new WorkExperience
+        {
+            Company = "UIC Integrative Physiology Lab",
+            Role = "Visiting Researcher",
+            StartDate = new DateOnly(2022, 11, 1),
+            EndDate = new DateOnly(2023, 5, 1),
+            Description = "Muscle activation research for high school capstone project",
+            Projects = new List<Project>
+            {
+                new Project
+                {
+                    Title = "Electromyographical Comparison of Row Exercises",
+                    Description = "Featured Paper in Journal of CPS Capstone Research",
+                    WebLink = "https://drive.google.com/file/d/1XqRVWyPKnwW9D_wGTkRyzJmZjCTc5zpS/view",
+                    PreviewPath = string.Empty,
+                    Skills = new List<string> { "R", "Signal Processing" },
+                    ButtonText = "View Paper"
+                }
+            }
+        }
+    };
 
-private string FormatDateRange(DateOnly start, DateOnly? end)
-=> $"{start:MMM yyyy} - {(end?.ToString("MMM yyyy") ?? "Present")}";
+    private WorkExperience? previewExp;
+    private Project? previewProj;
 
-private bool IsImageFile(string? path)
-{
-if (string.IsNullOrEmpty(path)) return false;
-var ext = Path.GetExtension(path).ToLowerInvariant();
-return new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" }
-.Contains(ext);
-}
+    private void TogglePreview(WorkExperience exp, Project proj)
+    {
+        if (previewExp == exp && previewProj == proj)
+        {
+            previewExp = null;
+            previewProj = null;
+        }
+        else
+        {
+            previewExp = exp;
+            previewProj = proj;
+        }
+    }
+
+    private string FormatDateRange(DateOnly start, DateOnly? end)
+    {
+        return $"{start:MMM yyyy} - {(end?.ToString("MMM yyyy") ?? "Present")}";
+    }
+
+    private bool IsImageFile(string? path)
+    {
+        if (string.IsNullOrEmpty(path)) return false;
+        var ext = Path.GetExtension(path).ToLowerInvariant();
+        return new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" }.Contains(ext);
+    }
 }

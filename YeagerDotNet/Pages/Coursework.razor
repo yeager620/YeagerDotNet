@@ -2,14 +2,12 @@
 <PageTitle>Coursework</PageTitle>
 
 <style>
-  /* Toggle button row */
   .toggle-buttons {
     margin-bottom: 1rem;
     display: flex;
     gap: 0.5rem;
   }
 
-  /* Ranked-lists grid */
   .ranked-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -32,7 +30,6 @@
     margin-top: 0.25rem;
   }
 
-  /* Semester view styles (you already have these) */
   .semester-header {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -75,10 +72,10 @@
 
   @if (showSemesterView)
   {
-    @* --- Semester-by-semester view, sorted newest first --- *@
+    @* semester view, sorted newest first *@
     @foreach (var semester in coursesBySemester
-      .OrderByDescending(kvp => int.Parse(kvp.Key.Split(' ')[1]))           // year descending
-      .ThenByDescending(kvp => seasonOrder[kvp.Key.Split(' ')[0]])          // Fall (2) before Spring (1)
+      .OrderByDescending(kvp => int.Parse(kvp.Key.Split(' ')[1]))
+      .ThenByDescending(kvp => seasonOrder[kvp.Key.Split(' ')[0]]) 
     )
     {
       <div class="semester-section">
@@ -109,7 +106,7 @@
   }
   else
   {
-    @* --- Four-column ranked lists --- *@
+    @* ranked list view *@
     <div class="ranked-grid">
       @foreach (var category in rankingLists.Keys)
       {
@@ -149,26 +146,37 @@
   // semester data
   private readonly Dictionary<string, List<Course>> coursesBySemester = new()
   {
+    ["Fall 2025"] = new() {
+      new("CS 172: Computability and Complexity",
+          "",
+          ""),
+      new("CS 189: Machine Learning",
+          "",
+          ""),
+      new("CS 164: Compilers",
+          "",
+          "")
+    },
     ["Spring 2025"] = new() {
       new("CS 162: Operating Systems and System Programming",
-          "Heinous.",
+          "",
           ""),
       new("CS 188: Artificial Intelligence",
-          "Quite underrated; the notion that it is useless compared to 189 is outdated.",
+          "",
           ""),
       new("ECON C103: Mathematical Economics",
-          "A stretch to call this a tech, but felt I got a lot more out of it than what I was expecting. ",
+          "",
           "")
     },
     ["Fall 2024"] = new() {
       new("EECS 126: Probability and Random Processes",
-          "Jiao is a funny guy.",
+          "",
           ""),
       new("CS 170: Efficient Algorithms and Intractable Problems",
           "",
           ""),
       new("CS 61c: Machine Structures",
-          "Garcia arguably best prof at Berkeley and maybe at any CS program anywhere",
+          "",
           "")
     },
     ["Spring 2024"] = new() {
@@ -176,7 +184,7 @@
           "",
           ""),
       new("CS 61b: Data Structures",
-          "Incredibly mid",
+          "",
           ""),
       new("EECS 16b: Designing Information Devices and Systems II",
           "",
@@ -190,24 +198,23 @@
           "",
           ""),
       new("Physics 7b: Thermodynamics, Electricity & Magnetism",
-          "Almost changed my major to physics",
+          "",
           "")
     }
   };
 
-  // new: four ranked lists of five courses each
   private readonly Dictionary<string, List<Course>> rankingLists = new()
   {
     ["Favorite"] = new() {
-    new("EECS 126: Probability", 
+    new("EECS 126: Probability and Random Processes", 
         "", ""),
-    new("Physics 7b", 
+    new("Physics 7b: Thermo, E&M", 
         "", ""),
     new("CS 61c: Machine Structures", 
         "", ""),
     new("CS 188: Artificial Intelligence", 
-        "Quite underrated. The notion that this class is useless in comparison to 189 is likely outdated.", ""),
-    new("CS 70: Discrete Mathematics and Probability Theory",
+        "", ""),
+    new("EECS 16b: DIDS II",
         "", "")
     },
     ["Most Useful"] = new() {
@@ -218,7 +225,7 @@
       new("EECS 126: Probability", 
           "", ""),
       new("CS 170: Efficient Algorithms and Intractable Problems", 
-        "Most of the utility from this course is derived from i) the ability to get better at leedcode and ii) an understanding of how to formulate problems in an algorithmic framework. I have personally found combinatorial algorithms largely useless.", ""),
+          "", ""),
       new("EECS 16b: DIDS II", 
           "", "")
     },
@@ -228,19 +235,11 @@
         new("CS 170: Efficient Algorithms and Intractable Problems", 
           "", ""),
         new("EECS 16a: DIDS I",
-        "", ""),
+          "", ""),
         new("CS 61c: Machine Structures", 
           "", ""),
         new("CS 61b: Data Structures", 
           "", "")
-    },
-    ["Easiest"] = new() {
-    new("ECON C103", 
-        "", ""),
-    new("CS 188: AI", 
-        "", ""),
-    new("Physics 7b",
-        "", ""),
     }
   };
 }

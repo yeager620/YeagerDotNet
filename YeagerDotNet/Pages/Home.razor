@@ -17,7 +17,6 @@
             <h1>Evan Yeager</h1>
             <p>Berkeley EECS undergrad</p>
             <p>I experience dunning-kreuger on an hourly basis</p>
-            <p>My personal dogmas / opinions change on an hourly basis so take everything I say with a grain of salt</p>
         </div>
     </div>
 
@@ -28,28 +27,15 @@
         <div class="window-body">
             <ul>
                 <li><strong>Email:</strong> <a href="mailto:yeager@berkeley.edu">yeager@berkeley.edu</a></li>
-                <li><strong>GitHub:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
                 <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/evanyeager" target="_blank">in</a></li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
+                <li><strong>HuggingFace:</strong> <a href="https://huggingface.co/totalorganfailure" target="_blank">totalorganfailure</a></li>
             </ul>
         </div>
     </div>
 </div>
 
 <div class="container general-container">
-
-<div class="thinking-section window">
-  <div class="title-bar">
-    <div class="title-bar-text">(Broad) academic interests</div>
-  </div>
-  <div class="window-body">
-    <ul>
-      @foreach (var item in interests)
-      {
-        <li>@item</li>
-      }
-    </ul>
-  </div>
-</div>
 
 <div class="thinking-section window">
   <div class="title-bar">
@@ -68,7 +54,7 @@
 @code {
   private List<string> interests = new()
   {
-    "Machine Learning (shocker right?)",
+    "Machine Learning",
     "Control Theory",
     "Derivatives Trading",
     "Distributed Systems",
@@ -81,11 +67,11 @@
 @code {
   private List<string> currentThoughts = new()
   {
-    "Mathematics/Physics-informed neural nets",
-    "HDL Compilers and NISC architecture",
-    "Deploying machine learning models on embedded devices",
-    "Steely Dan",
-    "GHOST Energy Drinks"
+    "Deploying models on embedded devices",
+    "Mathematics-informed LLMs / Proof Assistants",
+    "HDL Compilers",
+    "Graph Attention Networks",
+    "Latent space topology",
   };
 }
 
