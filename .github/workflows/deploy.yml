@@ -28,10 +28,6 @@ jobs:
         working-directory: ./YeagerDotNet
         run: dotnet publish -c Release -o dist
 
-      - name: Patch base href
-        run: |
-          sed -i 's|<base href="/" />|<base href="/YeagerDotNet/" />|' YeagerDotNet/dist/wwwroot/index.html
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
