@@ -1,0 +1,101 @@
+@page "/emrg"
+
+<PageTitle>EMRG - Evan Yeager</PageTitle>
+
+<div class="container general-container">
+    <div class="content-section window" style="max-width: 1000px; width: 100%;">
+        <div class="title-bar">
+            <div class="title-bar-text">an interesting engineering project to say the least</div>
+        </div>
+        <div class="window-body">
+            
+            <div class="project-section">
+                <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" @onclick="ToggleDesignPdf">
+                    <h3>purpose statement</h3>
+                    <span style="font-size: 18px;">@(showDesignPdf ? "▼" : "▶")</span>
+                </div>
+                @if (showDesignPdf)
+                {
+                    <div class="document-container" style="margin: 20px 0;">
+                        <iframe src="files/emrg/Design%20and%20purpose%20statement%20for%20the%20construction%20of%20an%20electromagnetic%20railgun.pdf" 
+                                width="100%" height="600" frameborder="0">
+                            <p>Your browser does not support PDFs. 
+                               <a href="files/emrg/Design%20and%20purpose%20statement%20for%20the%20construction%20of%20an%20electromagnetic%20railgun.pdf">Download the PDF</a>
+                            </p>
+                        </iframe>
+                        <p class="document-caption" style="margin-top: 10px; font-style: italic; color: #666; text-align: center;">
+                	as per the FBI's request, I wrote this up to help document devices of this kind since they operate in a legal grey area (and to demonstrate that I was not a domestic terrorist)
+			</p>
+                    </div>
+                }
+            </div>
+
+            <div class="project-section" style="margin-top: 40px;">
+                <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" @onclick="TogglePhotosPdf">
+                    <h3>some pictures</h3>
+                    <span style="font-size: 18px;">@(showPhotosPdf ? "▼" : "▶")</span>
+                </div>
+                @if (showPhotosPdf)
+                {
+                    <div class="document-container" style="margin: 20px 0;">
+                        <iframe src="files/emrg/Railgun%20photos.pdf" 
+                                width="100%" height="600" frameborder="0">
+                            <p>Your browser does not support PDFs. 
+                               <a href="files/emrg/Railgun%20photos.pdf">Download the PDF</a>
+                            </p>
+                        </iframe>
+                        <p class="document-caption" style="margin-top: 10px; font-style: italic; color: #666; text-align: center;">
+                            Comprehensive documentation and photos of the railgun construction process
+                        </p>
+                    </div>
+                    
+                    <div class="capacitor-section" style="margin-top: 30px;">
+                        <h4>capacitor pics</h4>
+                        <div class="image-gallery" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 20px 0;">
+                            <div class="image-item" style="text-align: center;">
+                                <img src="files/emrg/IMG_0522%20(1).JPG" alt="Capacitor Bank - Image 1" 
+                                     style="max-width: 400px; width: 100%; height: auto; border: 2px solid #c0c0c0; box-shadow: 2px 2px 4px rgba(0,0,0,0.3);" />
+                                <p style="margin-top: 10px; font-style: italic; color: #666;">Capacitor bank configuration</p>
+                            </div>
+                            <div class="image-item" style="text-align: center;">
+                                <img src="files/emrg/IMG_0523%20(1).JPG" alt="Capacitor Bank - Image 2" 
+                                     style="max-width: 400px; width: 100%; height: auto; border: 2px solid #c0c0c0; box-shadow: 2px 2px 4px rgba(0,0,0,0.3);" />
+                                <p style="margin-top: 10px; font-style: italic; color: #666;">Capacitor bank assembly details</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="project-section" style="margin-top: 40px;">
+                <h3>my commentary on the project</h3>
+                <div class="notes-area window" style="background: #f0f0f0; padding: 15px; border: 2px inset #c0c0c0;">
+                    <p style="color: #666; font-style: italic;">
+                    tl;dr sometimes I do things because they are cool
+		    </p>
+
+		    <p style="color: #666; font-style: italic;">
+		    Everything here is legal. AFAIK the project would have been the most powerful electromagnetic railgun (and possibly most energy dense acceleration device, period) built by a hobbyist (meaning non-government organization) ever. For various reasons, my buddies and I were forced to dissassemble the rig and cease further research before we could perform rigorous testing (the project was shut down by the Chicago branch of the FBI weapons of mass destruction unit)
+
+		    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool showDesignPdf = false;
+    private bool showPhotosPdf = false;
+
+    private void ToggleDesignPdf()
+    {
+        showDesignPdf = !showDesignPdf;
+    }
+
+    private void TogglePhotosPdf()
+    {
+        showPhotosPdf = !showPhotosPdf;
+    }
+}
