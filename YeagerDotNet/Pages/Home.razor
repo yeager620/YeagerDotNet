@@ -34,3 +34,142 @@
         </div>
     </div>
 </div>
+
+<div class="technical-writing-section window">
+    <div class="title-bar">
+        <div class="title-bar-text">Some of my technical writing and notes</div>
+    </div>
+    <div class="window-body">
+        <div class="writing-list">
+            <div class="window writing-item-window">
+                <div class="title-bar">
+                    <div class="title-bar-text">Generalized Kelly Criterion</div>
+                </div>
+                <div class="window-body">
+                    <p>A technical note from one of my projects on MLB game prediction and betting model development since I needed to determine an optimal strategy for certain types of bets with outcomes that could result in a tie. </p>
+
+                    <div class="button-group">
+                        <button class="win98-button" @onclick="() => TogglePreview()">
+                            <span class="writing-icon">📄</span>
+                            @(ShowPreview ? "Hide Preview" : "Show Preview")
+                        </button>
+                    </div>
+
+                    @if (ShowPreview)
+                    {
+                        <div class="writing-preview">
+                            <iframe src="files/Generalized_Kelly.pdf"
+                                    width="100%"
+                                    height="600"
+                                    class="inline-preview">
+                            </iframe>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="window writing-item-window">
+                <div class="title-bar">
+                    <div class="title-bar-text">Electromyographic Analysis of Row Exercises</div>
+                </div>
+                <div class="window-body">
+                    <p>A comparative analysis of muscle activation patterns across different rowing exercise variations using surface electromyography</p>
+
+                    <div class="button-group">
+                        <button class="win98-button" @onclick="() => ToggleEmgPreview()">
+                            <span class="writing-icon">📄</span>
+                            @(ShowEmgPreview ? "Hide Preview" : "Show Preview")
+                        </button>
+                    </div>
+
+                    @if (ShowEmgPreview)
+                    {
+                        <div class="writing-preview">
+                            <iframe src="files/emg.pdf"
+                                    width="100%"
+                                    height="600"
+                                    class="inline-preview">
+                            </iframe>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .technical-writing-section {
+        margin-top: 2rem;
+        max-width: none;
+        width: 100%;
+    }
+
+    .writing-list {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .writing-item-window {
+        margin-bottom: 2rem;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .win98-button {
+        padding: 2px 8px;
+        font-family: "MS Sans Serif", Arial, sans-serif;
+        font-size: 12px;
+        background: #c0c0c0;
+        color: #000;
+        border: 2px solid;
+        border-color: #dfdfdf #000 #000 #dfdfdf;
+        box-shadow: 1px 1px #000;
+        position: relative;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .win98-button:active {
+        border-color: #000 #dfdfdf #dfdfdf #000;
+        box-shadow: -1px -1px #000;
+    }
+
+    .writing-icon {
+        font-size: 12px;
+        line-height: 1;
+    }
+
+    .writing-preview {
+        margin-top: 1rem;
+    }
+
+    .inline-preview {
+        width: 100%;
+        height: 600px;
+        border: 2px solid;
+        border-color: #000 #dfdfdf #dfdfdf #000;
+        background: white;
+    }
+</style>
+
+@code {
+    private bool ShowPreview { get; set; } = false;
+    private bool ShowEmgPreview { get; set; } = false;
+
+    private void TogglePreview()
+    {
+        ShowPreview = !ShowPreview;
+    }
+
+    private void ToggleEmgPreview()
+    {
+        ShowEmgPreview = !ShowEmgPreview;
+    }
+}

@@ -4,7 +4,7 @@
 
 <PageTitle>My Work</PageTitle>
 
-<h2 class="page-title">all work and no work makes work a dull work</h2>
+<h1 class="page-title">all work and no work makes work a dull work</h1>
 
 <div class="container">
     @foreach (var exp in workExperiences.OrderByDescending(e => e.StartDate ?? DateOnly.MaxValue))
@@ -153,13 +153,13 @@
                     Description = "Automated identification, analysis, pricing of FLEX RevCons (Reversal Conversions); went into prod",
                     WebLink = "https://spiderrock.net/announcing-real-time-flex-option-pricing-and-analytics-available-through-spiderrock/",
                     PreviewPath = string.Empty,
-                    Skills = new List<string> { "C#", "Elastic", "Python", "Pandas" },
+                    Skills = new List<string> { "C#", "Elastic", "SQL", "Python", "Pandas" },
                     ButtonText = "Article"
                 },
                 new Project
                 {
                     Title = "Drift-adjusted Theta",
-                    Description = "Used expected stock drift rate to improve accuracy of various numerical option Theta calcs",
+                    Description = "Used expected stock drift rate derived from dividends and futures data to improve accuracy of various numerical option Theta calcs; went into prod",
                     PreviewPath = string.Empty,
                     Skills = new List<string> { "C#" }
                 },
@@ -172,8 +172,8 @@
                 },
                 new Project
                 {
-                    Title = "AlphaProbabilities Benchmarking",
-                    Description = "Benchmarking predictive power of in-house models for option trading signals and comparing to existing models",
+                    Title = "AlphaProbabilities Benchmarking and Feature Research",
+                    Description = "Researched new features and diversified training data sources for GBM model used to predict the probability distribution of PnL on options trades 10 minutes post-transaction, analyzing impact on feature importance and testing loss",
                     PreviewPath = string.Empty,
                     Skills = new List<string> { "Python", "XGBoost", "SQLyog", "Pandas" }
                 }
@@ -185,7 +185,7 @@
             Company = "Control Freak",
             Role = "Co-Founder",
             StartDate = new DateOnly(2025, 1, 1),
-            Description = "Intelligent motor control, tuning, and operating system software for robotic applications",
+            Description = "Intelligent motor control and tuning software for robotic applications",
             Projects = new List<Project>
             {
                 new Project
@@ -204,10 +204,10 @@
                 },
                 new Project
                 {
-                    Title = "RPC Framework",
-                    Description = "High performance remote procedure call framework for bidirectional communication between dashboard and motor controllers",
+                    Title = "RPC messaging system",
+                    Description = "High performance pub/sub remote procedure call framework for bidirectional communication between dashboard and motor controllers",
                     PreviewPath = string.Empty,
-                    Skills = new List<string> { "Rust", "Protobuf" }
+                    Skills = new List<string> { "Rust", "Protobuf", "Tonic" }
                 }
             }
         },
