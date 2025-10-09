@@ -19,3 +19,4 @@ Thumbs.db
 *.iws
 *.iml
 *.ipr
+.fake
