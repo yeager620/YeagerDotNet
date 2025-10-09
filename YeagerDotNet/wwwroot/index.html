@@ -21,6 +21,17 @@
     <div class="win98-progress-text"></div>
   </div>
   
+  <script>
+    // Decode the path from the 404 redirect
+    (function() {
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
+
   <script src="_framework/blazor.webassembly.js" autostart="false"></script>
   <script>
     Blazor.start();
