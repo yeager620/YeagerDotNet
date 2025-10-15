@@ -5,7 +5,7 @@
 <div class="container home-container">
     <div class="profile-section window">
         <div class="window-body">
-            <img src="files/webheadshot.JPG" alt="Evan Yeager" class="profile-image" />
+            <img src="files/webheadshot.JPG" alt="Evan Yeager" class="profile-image" fetchpriority="high" />
         </div>
     </div>
 
@@ -32,6 +32,43 @@
                 <li><strong>GitHub:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
                 <li><strong>HuggingFace:</strong> <a href="https://huggingface.co/totalorganfailure" target="_blank">totalorganfailure</a></li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="technical-writing-section window">
+    <div class="title-bar">
+        <div class="title-bar-text">Some Awards</div>
+    </div>
+    <div class="window-body">
+        <div class="writing-list">
+            <div class="window writing-item-window">
+                <div class="title-bar">
+                    <div class="title-bar-text">MathCON Finals Honorable Mention</div>
+                </div>
+                <div class="window-body">
+                    <p>Was an honorable mention at MathCON Finals 2022; 
+                    stats for the competition on a per-award basis weren't published (or at least in any interpretable form) 
+                    but based on total participants, total number of grade levels participating, 
+                    and number of people who got honorable mention or higher that year, I estimate that I was within the Top 12 out of ~3000 other Juniors, i.e. Top 0.4%</p>
+
+                    <div class="button-group">
+                        <button class="win98-button" @onclick="() => TogglePreview()">
+                            @(ShowPreview ? "Hide" : "Medal")
+                        </button>
+                    </div>
+
+                    @if (ShowPreview)
+                        {
+                            <div class="image-preview">
+                                <img src="files/mathcon_medal.png"
+                                    alt="MathCON medal"
+                                    class="inline-preview-img"
+                                    loading="lazy" />
+                            </div>
+                        }
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -100,6 +137,17 @@
 </div>
 
 <style>
+    .image-preview {
+        max-width: 280px;
+    }
+
+    .inline-preview-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        image-rendering: -webkit-optimize-contrast;
+    }
+
     .technical-writing-section {
         margin-top: 2rem;
         max-width: none;
@@ -174,3 +222,4 @@
         ShowEmgPreview = !ShowEmgPreview;
     }
 }
+
