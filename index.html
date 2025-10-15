@@ -8,14 +8,11 @@
     <title>Evan Yeager - Portfolio</title>
     <base href="/" />
 
-    <!-- Preload LCP image -->
     <link rel="preload" href="files/webheadshot.JPG" as="image" fetchpriority="high" />
 
-    <!-- Critical CSS -->
     <link rel="stylesheet" href="css/app.css" />
     <link href="YeagerDotNet.styles.css" rel="stylesheet" />
 
-    <!-- Defer non-critical Bootstrap CSS -->
     <link rel="preload" href="lib/bootstrap/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" /></noscript>
 
@@ -31,7 +28,6 @@
   </div>
   
   <script>
-    // Decode the path from the 404 redirect
     (function() {
       var redirect = sessionStorage.redirect;
       delete sessionStorage.redirect;

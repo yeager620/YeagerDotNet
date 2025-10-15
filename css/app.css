@@ -620,5 +620,31 @@ flex-wrap: wrap;
     border-color:
     var(--win-lighter) var(--win-darker) var(--win-darker) var(--win-lighter);
 }
-  
+
+.preview-container {
+    margin-top: 1rem;
+}
+
+.preview-content {
+    margin-top: 1rem;
+}
+
+.inline-preview-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    border: 2px solid;
+    border-color: var(--win-darker) var(--win-lighter) var(--win-lighter) var(--win-darker);
+}
+
+.win98-button .icon {
+    font-size: 12px;
+    line-height: 1;
+}
+
+.experience-graphic-block {
+    display: inline-block;
+    margin-right: 1rem;
+}
 
