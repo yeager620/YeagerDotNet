@@ -42,6 +42,7 @@
     </div>
     <div class="window-body">
         <div class="writing-list">
+
             <div class="window writing-item-window">
                 <div class="title-bar">
                     <div class="title-bar-text">MathCON Finals Honorable Mention</div>
@@ -53,12 +54,12 @@
                     and number of people who got honorable mention or higher that year, I estimate that I was within the Top 12 out of ~3000 other Juniors, i.e. Top 0.4%</p>
 
                     <div class="button-group">
-                        <button class="win98-button" @onclick="() => TogglePreview()">
-                            @(ShowPreview ? "Hide" : "Medal")
+                        <button class="win98-button" @onclick="() => ToggleMathConPreview()">
+                            @(ShowMathConPreview ? "Hide" : "Medal")
                         </button>
                     </div>
 
-                    @if (ShowPreview)
+                    @if (ShowMathConPreview)
                         {
                             <div class="image-preview">
                                 <img src="files/mathcon_medal.png"
@@ -67,6 +68,16 @@
                                     loading="lazy" />
                             </div>
                         }
+                </div>
+            </div>
+
+            <div class="window writing-item-window">
+                <div class="title-bar">
+                    <div class="title-bar-text">Top 3 Paper / Featured Researcher: CPS Capstone Journal</div>
+                </div>
+                <div class="window-body">
+                    <p>Was published in a journal for research done by highschool students in CPS, selected as one of the top 3 papers in 2023</p>
+                    <p>Journal: <a href="https://sites.google.com/cps.edu/journalofcpscapstoneresearch/home?authuser=0" target="_blank">The Chicago Public School's Journal of AP Capstone Research</a></p>
                 </div>
             </div>
         </div>
@@ -87,13 +98,13 @@
                     <p>A technical note from one of my projects on MLB game prediction and betting model development since I needed to determine an optimal strategy for certain types of bets with outcomes that could result in a tie. </p>
 
                     <div class="button-group">
-                        <button class="win98-button" @onclick="() => TogglePreview()">
+                        <button class="win98-button" @onclick="() => ToggleKellyPreview()">
                             <span class="writing-icon">📄</span>
-                            @(ShowPreview ? "Hide Preview" : "Show Preview")
+                            @(ShowKellyPreview ? "Hide Preview" : "Show Preview")
                         </button>
                     </div>
 
-                    @if (ShowPreview)
+                    @if (ShowKellyPreview)
                     {
                         <div class="writing-preview">
                             <iframe src="files/Generalized_Kelly.pdf"
@@ -209,12 +220,18 @@
 </style>
 
 @code {
-    private bool ShowPreview { get; set; } = false;
+    private bool ShowKellyPreview { get; set; } = false;
+    private bool ShowMathConPreview { get; set; } = false;
     private bool ShowEmgPreview { get; set; } = false;
 
-    private void TogglePreview()
+    private void ToggleMathConPreview()
     {
-        ShowPreview = !ShowPreview;
+        ShowMathConPreview = !ShowMathConPreview;
+    }
+
+    private void ToggleKellyPreview()
+    {
+        ShowKellyPreview = !ShowKellyPreview;
     }
 
     private void ToggleEmgPreview()
