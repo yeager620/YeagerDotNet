@@ -7,11 +7,19 @@
     <meta name="description" content="Evan Yeager - Berkeley EECS undergraduate. Personal portfolio showcasing academic work, research papers, projects, and technical writing." />
     <title>Evan Yeager - Portfolio</title>
     <base href="/" />
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Preload LCP image -->
+    <link rel="preload" href="files/webheadshot.JPG" as="image" fetchpriority="high" />
+
+    <!-- Critical CSS -->
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link href="YeagerDotNet.styles.css" rel="stylesheet" />
-    <link href="css/win2000.css" rel="stylesheet" />
+
+    <!-- Defer non-critical Bootstrap CSS -->
+    <link rel="preload" href="lib/bootstrap/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" /></noscript>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
 
 <body>
