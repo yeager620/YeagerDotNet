@@ -1,0 +1,22 @@
+<div class="window @CssClass">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <div class="title-bar">
+            <div class="title-bar-text">@Title</div>
+        </div>
+    }
+    <div class="window-body">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

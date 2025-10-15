@@ -1,151 +1,75 @@
 ﻿@page "/"
+@using YeagerDotNet.Components
 
 <PageTitle>Evan Yeager - Home</PageTitle>
 
 <div class="container home-container">
-    <div class="profile-section window">
-        <div class="window-body">
-            <img src="files/webheadshot.JPG" alt="Evan Yeager" class="profile-image" fetchpriority="high" />
-        </div>
-    </div>
+    <Window CssClass="profile-section">
+        <img src="files/webheadshot.JPG" alt="Evan Yeager" class="profile-image" fetchpriority="high" />
+    </Window>
 
-    <div class="bio-section window">
-        <div class="title-bar">
-            <div class="title-bar-text">About</div>
-        </div>
-        <div class="window-body">
-            <h1>Evan Yeager</h1>
-            <p>Berkeley EECS undergrad</p>
-            <p>Current co-pres for <a href="https://poker.berkeley.edu" target="_blank">Poker at Berkeley</a></p>
-            <p>I experience dunning-kreuger on an hourly basis</p>
-        </div>
-    </div>
+    <Window Title="About" CssClass="bio-section">
+        <h1>Evan Yeager</h1>
+        <p>Berkeley EECS undergrad</p>
+        <p>Current co-pres for <a href="https://poker.berkeley.edu" target="_blank">Poker at Berkeley</a></p>
+        <p>I experience dunning-kreuger on an hourly basis</p>
+    </Window>
 
-    <div class="contact-section window">
-        <div class="title-bar">
-            <div class="title-bar-text">Contact</div>
-        </div>
-        <div class="window-body">
-            <ul>
-                <li><strong>Email:</strong> <a href="mailto:yeager@berkeley.edu">yeager@berkeley.edu</a></li>
-                <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/evanyeager" target="_blank">in</a></li>
-                <li><strong>GitHub:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
-                <li><strong>HuggingFace:</strong> <a href="https://huggingface.co/totalorganfailure" target="_blank">totalorganfailure</a></li>
-            </ul>
-        </div>
-    </div>
+    <Window Title="Contact" CssClass="contact-section">
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:yeager@berkeley.edu">yeager@berkeley.edu</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/evanyeager" target="_blank">in</a></li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/yeager620" target="_blank">yeager620</a></li>
+            <li><strong>HuggingFace:</strong> <a href="https://huggingface.co/totalorganfailure" target="_blank">totalorganfailure</a></li>
+        </ul>
+    </Window>
 </div>
 
-<div class="technical-writing-section window">
-    <div class="title-bar">
-        <div class="title-bar-text">Some Awards</div>
-    </div>
-    <div class="window-body">
-        <div class="writing-list">
+<Window Title="Some Awards" CssClass="technical-writing-section">
+    <div class="writing-list">
+        <Window Title="MathCON Finals Honorable Mention" CssClass="writing-item-window">
+            <p>Was an honorable mention at MathCON Finals 2022;
+            stats for the competition on a per-award basis weren't published (or at least in any interpretable form)
+            but based on total participants, total number of grade levels participating,
+            and number of people who got honorable mention or higher that year, I estimate that I was within the Top 12 out of ~3000 other Juniors, i.e. Top 0.4%</p>
 
-            <div class="window writing-item-window">
-                <div class="title-bar">
-                    <div class="title-bar-text">MathCON Finals Honorable Mention</div>
-                </div>
-                <div class="window-body">
-                    <p>Was an honorable mention at MathCON Finals 2022; 
-                    stats for the competition on a per-award basis weren't published (or at least in any interpretable form) 
-                    but based on total participants, total number of grade levels participating, 
-                    and number of people who got honorable mention or higher that year, I estimate that I was within the Top 12 out of ~3000 other Juniors, i.e. Top 0.4%</p>
-
-                    <div class="button-group">
-                        <button class="win98-button" @onclick="() => ToggleMathConPreview()">
-                            @(ShowMathConPreview ? "Hide" : "Medal")
-                        </button>
-                    </div>
-
-                    @if (ShowMathConPreview)
-                        {
-                            <div class="image-preview">
-                                <img src="files/mathcon_medal.png"
-                                    alt="MathCON medal"
-                                    class="inline-preview-img"
-                                    loading="lazy" />
-                            </div>
-                        }
-                </div>
+            <div class="button-group">
+                <button class="win98-button" @onclick="() => ToggleMathConPreview()">
+                    @(ShowMathConPreview ? "Hide" : "Medal")
+                </button>
             </div>
 
-            <div class="window writing-item-window">
-                <div class="title-bar">
-                    <div class="title-bar-text">Top 3 Paper / Featured Researcher: CPS Capstone Journal</div>
+            @if (ShowMathConPreview)
+            {
+                <div class="image-preview">
+                    <img src="files/mathcon_medal.png"
+                        alt="MathCON medal"
+                        class="inline-preview-img"
+                        loading="lazy" />
                 </div>
-                <div class="window-body">
-                    <p>Was published in a journal for research done by highschool students in CPS, selected as one of the top 3 papers in 2023</p>
-                    <p>Journal: <a href="https://sites.google.com/cps.edu/journalofcpscapstoneresearch/home?authuser=0" target="_blank">The Chicago Public School's Journal of AP Capstone Research</a></p>
-                </div>
-            </div>
-        </div>
+            }
+        </Window>
+
+        <Window Title="Top 3 Paper / Featured Researcher: CPS Capstone Journal" CssClass="writing-item-window">
+            <p>Was published in a journal for research done by highschool students in CPS, selected as one of the top 3 papers in 2023</p>
+            <p>Journal: <a href="https://sites.google.com/cps.edu/journalofcpscapstoneresearch/home?authuser=0" target="_blank">The Chicago Public School's Journal of AP Capstone Research</a></p>
+        </Window>
     </div>
-</div>
+</Window>
 
-<div class="technical-writing-section window">
-    <div class="title-bar">
-        <div class="title-bar-text">Some of my technical writing and notes</div>
+<Window Title="Some of my technical writing and notes" CssClass="technical-writing-section">
+    <div class="writing-list">
+        <Window Title="Generalized Kelly Criterion" CssClass="writing-item-window">
+            <p>A technical note from one of my projects on MLB game prediction and betting model development since I needed to determine an optimal strategy for certain types of bets with outcomes that could result in a tie.</p>
+            <PdfPreviewButton PreviewUrl="files/Generalized_Kelly.pdf" />
+        </Window>
+
+        <Window Title="Electromyographic Analysis of Row Exercises" CssClass="writing-item-window">
+            <p>A comparative analysis of muscle activation patterns across different rowing exercise variations using surface electromyography</p>
+            <PdfPreviewButton PreviewUrl="files/emg.pdf" />
+        </Window>
     </div>
-    <div class="window-body">
-        <div class="writing-list">
-            <div class="window writing-item-window">
-                <div class="title-bar">
-                    <div class="title-bar-text">Generalized Kelly Criterion</div>
-                </div>
-                <div class="window-body">
-                    <p>A technical note from one of my projects on MLB game prediction and betting model development since I needed to determine an optimal strategy for certain types of bets with outcomes that could result in a tie. </p>
-
-                    <div class="button-group">
-                        <button class="win98-button" @onclick="() => ToggleKellyPreview()">
-                            <span class="writing-icon">📄</span>
-                            @(ShowKellyPreview ? "Hide Preview" : "Show Preview")
-                        </button>
-                    </div>
-
-                    @if (ShowKellyPreview)
-                    {
-                        <div class="writing-preview">
-                            <iframe src="files/Generalized_Kelly.pdf"
-                                    width="100%"
-                                    height="600"
-                                    class="inline-preview">
-                            </iframe>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <div class="window writing-item-window">
-                <div class="title-bar">
-                    <div class="title-bar-text">Electromyographic Analysis of Row Exercises</div>
-                </div>
-                <div class="window-body">
-                    <p>A comparative analysis of muscle activation patterns across different rowing exercise variations using surface electromyography</p>
-
-                    <div class="button-group">
-                        <button class="win98-button" @onclick="() => ToggleEmgPreview()">
-                            <span class="writing-icon">📄</span>
-                            @(ShowEmgPreview ? "Hide Preview" : "Show Preview")
-                        </button>
-                    </div>
-
-                    @if (ShowEmgPreview)
-                    {
-                        <div class="writing-preview">
-                            <iframe src="files/emg.pdf"
-                                    width="100%"
-                                    height="600"
-                                    class="inline-preview">
-                            </iframe>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</Window>
 
 <style>
     .image-preview {
@@ -220,23 +144,11 @@
 </style>
 
 @code {
-    private bool ShowKellyPreview { get; set; } = false;
     private bool ShowMathConPreview { get; set; } = false;
-    private bool ShowEmgPreview { get; set; } = false;
 
     private void ToggleMathConPreview()
     {
         ShowMathConPreview = !ShowMathConPreview;
-    }
-
-    private void ToggleKellyPreview()
-    {
-        ShowKellyPreview = !ShowKellyPreview;
-    }
-
-    private void ToggleEmgPreview()
-    {
-        ShowEmgPreview = !ShowEmgPreview;
     }
 }
 

@@ -3,7 +3,6 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
-CLAUDE.md
 
 # macOS
 .DS_Store
@@ -15,7 +14,7 @@ ehthumbs.db
 Thumbs.db
 
 # JetBrains IDEs
-.idea/
+*.idea/
 *.iws
 *.iml
 *.ipr

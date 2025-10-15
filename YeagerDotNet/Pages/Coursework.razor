@@ -70,7 +70,6 @@
 
   @if (showSemesterView)
   {
-    @* semester view, sorted newest first *@
     @foreach (var semester in coursesBySemester
       .OrderByDescending(kvp => int.Parse(kvp.Key.Split(' ')[1]))
       .ThenByDescending(kvp => seasonOrder[kvp.Key.Split(' ')[0]]) 
@@ -104,7 +103,6 @@
   }
   else
   {
-    @* ranked list view *@
     <div class="ranked-grid">
       @foreach (var category in rankingLists.Keys)
       {
@@ -129,10 +127,8 @@
 </section>
 
 @code {
-  // toggle state
   private bool showSemesterView = true;
 
-  // map seasons to sort order
   private static readonly Dictionary<string,int> seasonOrder = new()
   {
     ["Spring"] = 1,
@@ -141,7 +137,6 @@
 
   public record Course(string Name, string Description, string NotesLink);
 
-  // semester data
   private readonly Dictionary<string, List<Course>> coursesBySemester = new()
   {
     ["Fall 2025"] = new() {

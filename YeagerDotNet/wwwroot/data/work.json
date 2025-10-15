@@ -1,0 +1,82 @@
+[
+  {
+    "Company": "SpiderRock",
+    "Role": "Software Engineering Intern",
+    "StartDate": "2024-06-01",
+    "EndDate": "2024-08-01",
+    "Description": "Eat sleep breathe options",
+    "GraphicPath": "files/srock.png",
+    "Projects": [
+      {
+        "Title": "FLEX Option Data Analytics",
+        "Description": "Automated identification, analysis, pricing of FLEX RevCons (Reversal Conversions); went into prod",
+        "WebLink": "https://spiderrock.net/announcing-real-time-flex-option-pricing-and-analytics-available-through-spiderrock/",
+        "PreviewPath": "",
+        "Skills": ["C#", "Elastic", "SQL", "Python", "Pandas"],
+        "ButtonText": "Article"
+      },
+      {
+        "Title": "Drift-adjusted Theta",
+        "Description": "Used expected stock drift rate derived from dividends and futures data to improve accuracy of various numerical option Theta calcs; went into prod",
+        "PreviewPath": "",
+        "Skills": ["C#"]
+      },
+      {
+        "Title": "Exchange Message Dissemination Analysis",
+        "Description": "Research and subsequent presentation on message dissemination patterns of European derivatives exchanges during order book sweeps",
+        "PreviewPath": "",
+        "Skills": ["SQLyog", "Python"]
+      },
+      {
+        "Title": "AlphaProbabilities Benchmarking and Feature Research",
+        "Description": "Researched new features and diversified training data sources for GBM model used to predict the probability distribution of PnL on options trades 10 minutes post-transaction, analyzing impact on feature importance and testing loss",
+        "PreviewPath": "",
+        "Skills": ["Python", "XGBoost", "SQLyog", "Pandas"]
+      }
+    ]
+  },
+  {
+    "Company": "Maquoketa Research",
+    "Role": "Research Engineer",
+    "StartDate": "2025-01-01",
+    "EndDate": null,
+    "Description": "Intelligent motor control and tuning software for robotic applications",
+    "Projects": [
+      {
+        "Title": "Autotune",
+        "Description": "Automated proportional, integral, derivative feedback control gain tuning",
+        "PreviewPath": "",
+        "Skills": ["Rust"]
+      },
+      {
+        "Title": "SysId Engine",
+        "Description": "Automated experiments for robotic subsystem identification and feedforward gain tuning",
+        "PreviewPath": "",
+        "Skills": ["Rust", "ndarray"]
+      },
+      {
+        "Title": "RPC messaging system",
+        "Description": "High performance pub/sub remote procedure calls (gRPC) for bidirectional communication between dashboard and motor controllers",
+        "PreviewPath": "",
+        "Skills": ["Rust", "Protobuf", "Tonic"]
+      }
+    ]
+  },
+  {
+    "Company": "UIC Integrative Physiology Lab",
+    "Role": "Visiting Researcher",
+    "StartDate": "2022-11-01",
+    "EndDate": "2023-05-01",
+    "Description": "Muscle activation research for high school capstone project",
+    "Projects": [
+      {
+        "Title": "Electromyographical Comparison of Row Exercises",
+        "Description": "Featured Paper in Journal of CPS Capstone Research",
+        "WebLink": "https://drive.google.com/file/d/1XqRVWyPKnwW9D_wGTkRyzJmZjCTc5zpS/view",
+        "PreviewPath": "",
+        "Skills": ["R", "Signal Processing"],
+        "ButtonText": "View Paper"
+      }
+    ]
+  }
+]

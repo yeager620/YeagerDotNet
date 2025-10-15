@@ -1,21 +1,24 @@
 @page "/mywork"
-@using Microsoft.JSInterop
-@using System.IO
+@using YeagerDotNet.Models
+@using YeagerDotNet.Components
+@using YeagerDotNet.Services
+@inject HttpClient Http
+@inject UtilityService Utility
 
 <PageTitle>My Work</PageTitle>
 
 <h1 class="page-title">all work and no work makes work a dull work</h1>
 
 <div class="container">
-    @foreach (var exp in workExperiences.OrderByDescending(e => e.StartDate ?? DateOnly.MaxValue))
+    @if (workExperiences == null)
     {
-        <div class="window experience-window">
-            <div class="title-bar">
-                <div class="title-bar-text">
-                    @exp.Company
-                </div>
-            </div>
-            <div class="window-body">
+        <p>Loading work experiences...</p>
+    }
+    else
+    {
+        @foreach (var exp in workExperiences.OrderByDescending(e => e.StartDate ?? DateOnly.MaxValue))
+        {
+            <Window Title="@exp.Company" CssClass="experience-window">
                 @if (!string.IsNullOrEmpty(exp.GraphicPath)) 
                 {
                     <div class="experience-graphic-block">
@@ -30,9 +33,9 @@
                     <h4>@exp.Role</h4>
                 }
 
-                @if (exp.StartDate.HasValue && exp.EndDate.HasValue)
+                @if (exp.StartDate.HasValue)
                 {
-                    <h5 class="date-subtitle">@FormatDateRange(exp.StartDate.Value, exp.EndDate)</h5>
+                    <h5 class="date-subtitle">@Utility.FormatDateRange(exp.StartDate.Value, exp.EndDate)</h5>
                 }
 
                 @if (!string.IsNullOrWhiteSpace(exp.Description))
@@ -87,11 +90,11 @@
                                     </td>
                                 </tr>
 
-                                @if (previewExp == exp && previewProj == p)
+                                @if (_previewExp == exp && _previewProj == p)
                                 {
                                     <tr class="preview-row">
                                         <td colspan="4">
-                                            @if (IsImageFile(p.PreviewPath))
+                                            @if (Utility.IsImageFile(p.PreviewPath))
                                             {
                                                 <img src="@p.PreviewPath" alt="Preview" class="inline-preview" />
                                             }
@@ -106,8 +109,8 @@
                         </tbody>
                     </table>
                 }
-            </div>
-        </div>
+            </Window>
+        }
     }
 </div>
 
@@ -115,150 +118,41 @@
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = null!;
 
-    public class Project
-    {
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public string? WebLink { get; set; }
-        public string? PreviewPath { get; set; }
-        public List<string>? Skills { get; set; }
-        public string ButtonText { get; set; } = "View";
-    }
+    private List<WorkExperience>? workExperiences;
 
-    public class WorkExperience
+    protected override async Task OnInitializedAsync()
     {
-        public string Company { get; set; } = string.Empty;
-        public string? Role { get; set; }
-        public DateOnly? StartDate { get; set; }
-        public DateOnly? EndDate { get; set; }
-        public string? Description { get; set; }
-        public List<Project>? Projects { get; set; }
-        public string? GraphicPath { get; set; }
-    }
+        var loadedExperiences = await Http.GetFromJsonAsync<List<WorkExperience>>("data/work.json");
 
-    private List<WorkExperience> workExperiences = new()
-    {
-        new WorkExperience
+        if (loadedExperiences != null)
         {
-            Company = "SpiderRock",
-            Role = "Software Engineering Intern",
-            StartDate = new DateOnly(2024, 6, 1),
-            EndDate = new DateOnly(2024, 8, 1),
-            Description = "Eat sleep breathe options",
-            Projects = new List<Project>
+            workExperiences = loadedExperiences.Select(exp => new WorkExperience
             {
-                new Project
-                {
-                    Title = "FLEX Option Data Analytics",
-                    Description = "Automated identification, analysis, pricing of FLEX RevCons (Reversal Conversions); went into prod",
-                    WebLink = "https://spiderrock.net/announcing-real-time-flex-option-pricing-and-analytics-available-through-spiderrock/",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "C#", "Elastic", "SQL", "Python", "Pandas" },
-                    ButtonText = "Article"
-                },
-                new Project
-                {
-                    Title = "Drift-adjusted Theta",
-                    Description = "Used expected stock drift rate derived from dividends and futures data to improve accuracy of various numerical option Theta calcs; went into prod",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "C#" }
-                },
-                new Project
-                {
-                    Title = "Exchange Message Dissemination Analysis",
-                    Description = "Research and subsequent presentation on message dissemination patterns of European derivatives exchanges during order book sweeps",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "SQLyog", "Python" }
-                },
-                new Project
-                {
-                    Title = "AlphaProbabilities Benchmarking and Feature Research",
-                    Description = "Researched new features and diversified training data sources for GBM model used to predict the probability distribution of PnL on options trades 10 minutes post-transaction, analyzing impact on feature importance and testing loss",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "Python", "XGBoost", "SQLyog", "Pandas" }
-                }
-            },
-            GraphicPath = "files/srock.png"
-        },
-        new WorkExperience
-        {
-            Company = "Maquoketa Research",
-            Role = "Research Engineer",
-            StartDate = new DateOnly(2025, 1, 1),
-            Description = "Intelligent motor control and tuning software for robotic applications",
-            Projects = new List<Project>
-            {
-                new Project
-                {
-                    Title = "Autotune",
-                    Description = "Automated proportional, integral, derivative feedback control gain tuning",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "Rust" }
-                },
-                new Project
-                {
-                    Title = "SysId Engine",
-                    Description = "Automated experiments for robotic subsystem identification and feedforward gain tuning",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "Rust", "ndarray" }
-                },
-                new Project
-                {
-                    Title = "RPC messaging system",
-                    Description = "High performance pub/sub remote procedure calls (gRPC) for bidirectional communication between dashboard and motor controllers",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "Rust", "Protobuf", "Tonic" }
-                }
-            }
-        },
-        new WorkExperience
-        {
-            Company = "UIC Integrative Physiology Lab",
-            Role = "Visiting Researcher",
-            StartDate = new DateOnly(2022, 11, 1),
-            EndDate = new DateOnly(2023, 5, 1),
-            Description = "Muscle activation research for high school capstone project",
-            Projects = new List<Project>
-            {
-                new Project
-                {
-                    Title = "Electromyographical Comparison of Row Exercises",
-                    Description = "Featured Paper in Journal of CPS Capstone Research",
-                    WebLink = "https://drive.google.com/file/d/1XqRVWyPKnwW9D_wGTkRyzJmZjCTc5zpS/view",
-                    PreviewPath = string.Empty,
-                    Skills = new List<string> { "R", "Signal Processing" },
-                    ButtonText = "View Paper"
-                }
-            }
+                Company = exp.Company,
+                Role = exp.Role,
+                StartDate = exp.StartDate,
+                EndDate = exp.EndDate,
+                Description = exp.Description,
+                Projects = exp.Projects,
+                GraphicPath = exp.GraphicPath
+            }).ToList();
         }
-    };
+    }
 
-    private WorkExperience? previewExp;
-    private Project? previewProj;
+    private WorkExperience? _previewExp;
+    private Project? _previewProj;
 
     private void TogglePreview(WorkExperience exp, Project proj)
     {
-        if (previewExp == exp && previewProj == proj)
+        if (_previewExp == exp && _previewProj == proj)
         {
-            previewExp = null;
-            previewProj = null;
+            _previewExp = null;
+            _previewProj = null;
         }
         else
         {
-            previewExp = exp;
-            previewProj = proj;
+            _previewExp = exp;
+            _previewProj = proj;
         }
-    }
-
-    private string FormatDateRange(DateOnly start, DateOnly? end)
-    {
-        return $"{start:MMM yyyy} - {(end?.ToString("MMM yyyy") ?? "Present")}";
-    }
-
-    private bool IsImageFile(string? path)
-    {
-        if (string.IsNullOrEmpty(path)) return false;
-        var ext = Path.GetExtension(path).ToLowerInvariant();
-        return new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" }.Contains(ext);
     }
 }

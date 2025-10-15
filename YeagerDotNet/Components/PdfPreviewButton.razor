@@ -1,0 +1,54 @@
+<div class="preview-container">
+    <button class="win98-button" @onclick="TogglePreview">
+        <span class="icon">📄</span>
+        @(IsVisible ? HideText : ShowText)
+    </button>
+
+    @if (IsVisible)
+    {
+        <div class="preview-content">
+            @if (IsImage)
+            {
+                <img src="@PreviewUrl"
+                     alt="@AltText"
+                     class="inline-preview-img"
+                     loading="lazy" />
+            }
+            else
+            {
+                <iframe src="@PreviewUrl"
+                        width="100%"
+                        height="@Height"
+                        class="inline-preview">
+                </iframe>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string PreviewUrl { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ShowText { get; set; } = "Show Preview";
+
+    [Parameter]
+    public string HideText { get; set; } = "Hide Preview";
+
+    [Parameter]
+    public string AltText { get; set; } = "Preview";
+
+    [Parameter]
+    public string Height { get; set; } = "600px";
+
+    [Parameter]
+    public bool IsImage { get; set; }
+
+    private bool IsVisible { get; set; }
+
+    private void TogglePreview()
+    {
+        IsVisible = !IsVisible;
+    }
+}
