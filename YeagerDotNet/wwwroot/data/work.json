@@ -36,10 +36,10 @@
     ]
   },
   {
-    "Company": "Maquoketa Research",
+    "Company": "Control Freak",
     "Role": "Research Engineer",
-    "StartDate": "2025-01-01",
-    "EndDate": null,
+    "StartDate": "2025-05-01",
+    "EndDate": "2025-08-16",
     "Description": "Intelligent motor control and tuning software for robotic applications",
     "Projects": [
       {
@@ -61,6 +61,14 @@
         "Skills": ["Rust", "Protobuf", "Tonic"]
       }
     ]
+  },
+  {
+    "Company": "Maquoketa Research",
+    "Role": "Chief of Research",
+    "StartDate": "2025-11-01",
+    "EndDate": null,
+    "Description": "Autonomous one-way attack drones",
+    "Projects": []
   },
   {
     "Company": "UIC Integrative Physiology Lab",
